@@ -1,0 +1,177 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html layout:decorator="admin/template">
+<head>
+<meta charset="UTF-8" />
+<title>Danh sách sản phẩm</title>
+<!-- Bootstrap 3.3.6 -->
+<link rel="stylesheet" th:href="@{/admin/admin/css/bootstrap.min.css}">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+<!-- DataTables -->
+<link rel="stylesheet"
+	th:href="@{/admin/admin/datatables/dataTables.bootstrap.css}">
+<!-- Theme style -->
+<link rel="stylesheet" th:href="@{/admin/admin/css/AdminLTE.min.css}">
+<!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+<link rel="stylesheet"
+	th:href="@{/admin/admin/css/skins/_all-skins.min.css}">
+<!-- DataTables -->
+<link rel="stylesheet"
+	th:href="@{/admin/admin/datatables/dataTables.bootstrap.css}">
+
+</style>
+<!-- jQuery 2.2.0 -->
+<script th:src="@{/admin/admin/jQuery/jQuery-2.2.0.min.js}"></script>
+<!-- Bootstrap 3.3.6 -->
+<script th:src="@{/admin/admin/js/bootstrap.min.js}"></script>
+<!-- DataTables -->
+<script th:src="@{/admin/admin/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/admin/admin/datatables/dataTables.bootstrap.min.js}"></script>
+<!-- SlimScroll -->
+<script th:src="@{/admin/admin/slimScroll/jquery.slimscroll.min.js}"></script>
+<!-- FastClick -->
+<script th:src="@{/admin/admin/fastclick/fastclick.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/admin/admin/js/app.min.js}"></script>
+<!-- AdminLTE for demo purposes -->
+<script th:src="@{/admin/admin/js/demo.js}"></script>
+<!-- page script -->
+
+</head>
+<body layout:fragment="content" th:remove="tag"
+	class="hold-transition skin-blue sidebar-mini">
+	<div class="wrapper">
+		<div class="content-wrapper">
+			
+
+				<section class="content-header">
+				<h1>Thông tin sản phẩm</h1>
+				<br> <a th:href="@{/admin/product/add}"><input
+					type="submit" value="Thêm Sản Phẩm" class="btn btn-success" /></a>
+					<br>
+					<br>
+				<ol class="breadcrumb">
+					<li><a href="#"><i class="fa fa-dashboard"></i> Quản trị</a></li> 
+					<li><a href="#">Thông tin sản phẩm</a></li>
+				</ol>
+				</section>
+				<div>
+					<form th:action="@{/admin/product/search}" method="get">
+						<label > Tên : </label><input type="text" name="keyword"
+							th:value="${keyword}"
+							placeholder="Tìm theo tên sản phẩm"> <label>
+							Thể Loại : </label> <select type="text" name="categoryName"
+							th:value="${categoryName}">
+							<option th:each="id: ${categoryList}" th:value="${id.name}"
+								th:text="${id.name}"></option>
+							<option selected="selected"></option>
+						</select> <label> Thương Hiệu : </label> <select type="text"
+							name="thuongHieuName" th:value="${thuongHieuName}">
+							<option th:each="id: ${thuongHieuList}" th:value="${id.name}"
+								th:text="${id.name}"></option>
+							<option selected="selected"></option>
+						</select> <label> Kích Thước : </label> <select type="text"
+							name="kichThuocName" th:value="${kichThuocName}">
+							<option th:each="kichThuoc: ${kichThuocList}"
+								th:value="${kichThuoc.name}" th:text="${kichThuoc.name}"></option>
+							<option selected="selected"></option>
+						</select> <!-- <label> Giới Tính: </label> <select type="text"
+							name="gioiTinhName" th:value="${gioiTinhName}">
+							<option th:each="gioiTinh: ${gioiTinhList}"
+								th:value="${gioiTinh.name}" th:text="${gioiTinh.name}"></option>
+							<option selected="selected"></option>
+							
+						</select>  -->
+						
+						<!-- <label>Lọc theo giá: </label>
+						
+						<input type="text" name="priceStart" th:value="${priceStart}"
+							placeholder="Từ"> <input type="text" name="priceEnd"
+							th:value="${priceEnd}" placeholder="Đến">
+ -->
+
+						<button type="submit" class="btn btn-info btn-sm">Tìm Kiếm</button>
+					</form>
+				</div>
+				<br>
+				
+				<br><br>
+				<div>
+					<section class="content">
+					<div class="row">
+						<div class="col-xs-12">
+							<!-- Start Table -->
+							<div class="box">
+								<!-- /.box-header -->
+								<div class="box-body">
+									<table id="example1" class="table table-bordered table-striped">
+										<thead>
+											<tr>
+												<th>Mã Sản Phẩm</th>
+												<th>Tên sản phẩm</th>
+												<th>Giá Nhập</th>
+												<th>Giá Bán</th>
+												<th>Ảnh sản phẩm</th>
+												<th>Mô Tả</th>
+												<th>Thể loại</th>
+												<th>Thương hiệu</th>
+												<th>Kích Thước</th>
+												<th>Số Lượng</th>
+												<th>Lựa Chọn</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="pro :${productList}">
+												<td th:text="${pro.id }"></td>
+												<td th:text="${pro.name }"></td>
+												<td><span th:text="${#numbers.formatDecimal(pro.priceIn, 0, 'COMMA', 0, 'POINT')}"></span>đ</td>
+												<td><span th:text="${#numbers.formatDecimal(pro.priceOut, 0, 'COMMA', 0, 'POINT')}"></span>đ</td>
+												<td><img th:src="@{'/download?image='+${pro.image}}"
+													style="width: 100px; height: 100px;"></td>
+												<td th:text="${pro.description }"></td>
+												<td th:text="${pro.category.name }"></td>
+												<td th:text="${pro.thuongHieuDTO.name }"></td>
+												<td th:text="${pro.kichThuocDTO.name }"></td>
+												<td th:text="${pro.soLuong }"></td>
+												<td><a
+													th:href="@{'/admin/product/update?id='+${pro.id }}"> <i
+														class="fa fa-edit" style="font-size: 22px"></i>
+												</a>  <a th:href="@{'/admin/product/delete?id='+${pro.id }}">
+														<i class="fa fa-times" style="font-size: 22px"></i>
+												</a></td>
+											</tr>
+										</tbody>
+
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					</section>
+					
+
+				</div>
+				 <center>
+				  <div>
+					<a class="btn btn-warning" 
+						th:href="@{'/admin/product/search?keyword=' + ${keyword}+'&categoryName'+ ${categoryName}+'&thuongHieuName'+ ${thuongHieuName}+'&kichThuocName'+ ${kichThuocName} +'&page=' + ${page + 1}}">Xem thêm</a>
+				</div> 
+				</center>
+				</br> 
+			
+		</div>
+	</div>
+<footer
+		style="border-top: 1px solid #d2d6de; text-align: center; background: #fff; color: #444; height: 60px; line-height: 60px;">
+		<strong>Copyright &copy; 2020 | <a
+			href="http://facebook.com/chungtranhy">C&T</a>.
+		</strong>
+	</footer>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html layout:decorator="admin/template">
+<head>
+<meta charset="UTF-8">
+<title>Thêm người dùng</title>
+<!-- Bootstrap 3.3.6 -->
+<link rel="stylesheet" th:href="@{/admin/admin/css/bootstrap.min.css}">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+<!-- DataTables -->
+<link rel="stylesheet"
+	th:href="@{/admin/admin/datatables/dataTables.bootstrap.css}">
+<!-- Theme style -->
+<link rel="stylesheet" th:href="@{/admin/admin/css/AdminLTE.min.css}">
+<!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+<link rel="stylesheet"
+	th:href="@{/admin/admin/css/skins/_all-skins.min.css}">
+
+<!-- jQuery 2.2.0 -->
+<script th:src="@{/admin/admin/jQuery/jQuery-2.2.0.min.js}"></script>
+<!-- Bootstrap 3.3.6 -->
+<script th:src="@{/admin/admin/js/bootstrap.min.js}"></script>
+<!-- DataTables -->
+<script th:src="@{/admin/admin/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/admin/admin/datatables/dataTables.bootstrap.min.js}"></script>
+<!-- SlimScroll -->
+<script th:src="@{/admin/admin/slimScroll/jquery.slimscroll.min.js}"></script>
+<!-- FastClick -->
+<script th:src="@{/admin/admin/fastclick/fastclick.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/admin/admin/js/app.min.js}"></script>
+<!-- AdminLTE for demo purposes -->
+<script th:src="@{/admin/admin/js/demo.js}"></script>
+<style>
+#rightContent {
+	
+}
+
+#rightContent h3 {
+	font-size: 20px;
+	font-weight: normal;
+	padding: 0;
+	margin: 5px;
+	border-bottom: 1px dashed #dcdcdc;
+}
+</style>
+</head>
+<body layout:fragment="content" th:remove="tag"
+	class="hold-transition skin-blue sidebar-mini">
+	<div class="wrapper">
+		<div class="content-wrapper">
+			<section class="content-header">
+				<h1>Thêm Người Dùng</h1>
+				<br>
+				<ol class="breadcrumb">
+					<li><a href="#"><i class="fa fa-dashboard"></i> Quản trị</a></li> >
+					<li><a href="#">Sửa thông tin người dùng</a></li>
+				</ol>
+			</section>
+			<div class="">
+				<div class="main-login main-center">
+					<form th:action="@{/admin/user/add}" th:object="${adduser}"
+						method="post">
+
+						<fieldset>
+
+							<div class="form-group">
+								<label class="col-md-1 control-label">Tên</label>
+								<div class="col-md-3">
+									<input type="text" class="form-control name" th:field="*{name}"
+										placeholder="Nhập Tên" />
+									<p style="color: red;" th:if="${#fields.hasErrors('name')}"
+										th:errors="*{name}">error name</p>
+								</div>
+							</div>
+							<br> <br> <br>
+
+							<div class="form-group">
+								<label class="col-md-1 control-label">Tuổi</label>
+								<div class="col-md-3">
+									<input type="number" class="form-control name"
+										th:field="*{age}" placeholder="Nhập Tuổi" />
+									<p style="color: red;" th:if="${#fields.hasErrors('age')}"
+										th:errors="*{age}">error name</p>
+								</div>
+							</div>
+							<br> <br> <br> <br>
+							<div class="form-group">
+								<label class="col-md-1 control-label">Email</label>
+								<div class="col-md-3">
+									<input type="text" class="form-control name"
+										th:field="*{email}" placeholder="Nhập Email" />
+									<p style="color: red;" th:if="${#fields.hasErrors('email')}"
+										th:errors="*{email}">error name</p>
+								</div>
+							</div>
+							<br> <br> <br>
+							<div class="form-group">
+								<label class="col-md-1 control-label">Số Điện Thoại</label>
+								<div class="col-md-3">
+									<input type="number" class="form-control name"
+										th:field="*{phone}" placeholder="Nhập Số Điện Thoại" />
+									<p style="color: red;" th:if="${#fields.hasErrors('phone')}"
+										th:errors="*{phone}">error name</p>
+								</div>
+							</div>
+							<br> <br> <br>
+							<div class="form-group">
+								<label class="col-md-1 control-label">Giới Tính</label>
+								<div class="col-md-3">
+									<select name="gender" class="form-control name">>
+										<option value="Nam">Nam</option>
+										<option value="Nữ">Nữ</option>
+									</select>
+								</div>
+							</div>
+							<br> <br>
+							<div class="form-group">
+								<label class="col-md-1 control-label">Địa Chỉ</label>
+								<div class="col-md-3">
+									<input type="text" class="form-control name"
+										th:field="*{address}" placeholder="Nhập Địa Chỉ" />
+									<p style="color: red;" th:if="${#fields.hasErrors('address')}"
+										th:errors="*{address}">error name</p>
+								</div>
+							</div>
+							<br> <br> <br>
+							<div class="form-group">
+								<label class="col-md-1 control-label">Tài Khoản</label>
+								<div class="col-md-3">
+									<input type="text" class="form-control name"
+										th:field="*{username}" placeholder="Nhập Tài Khoản" />
+									<p style="color: red;" th:if="${#fields.hasErrors('username')}"
+										th:errors="*{username}">error name</p>
+								</div>
+							</div>
+							<br> <br> <br>
+							<div class="form-group">
+								<label class="col-md-1 control-label">Mật Khẩu</label>
+								<div class="col-md-3">
+									<input type="password" class="form-control name"
+										th:field="*{password}" placeholder="Nhập Mật Khẩu" />
+									<p style="color: red;" th:if="${#fields.hasErrors('password')}"
+										th:errors="*{password}">error name</p>
+								</div>
+							</div>
+							<br> <br> <br>
+							<div class="form-group">
+								<label class="col-md-1 control-label">Quyền</label>
+								<div class="col-md-3">
+									<select name="role" class="form-control name">>
+										<option value="ROLE_MEMBER">ROLE_MEMBER</option>
+										<option value="ROLE_ADMIN">ROLE_ADMIN</option>
+									</select>
+									<p style="color: red;" th:text="${msg}"></p>
+								</div>
+								
+							</div>
+							
+							<br> <br> <br>
+							<div class="form-group">
+								<label class="col-md-1 control-label" for="submit"></label>
+								<div class="col-md-3">
+									<button type="submit" class="btn btn-info">Thêm</button>
+									<a type="button" class="btn btn-danger"
+										th:href="@{/admin/user/search}">Quay lại</a>
+								</div>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer
+		style="border-top: 1px solid #d2d6de; text-align: center; background: #fff; color: #444; height: 60px; line-height: 60px;">
+		<strong>Copyright &copy; 2020 | <a
+			href="http://facebook.com/chungtranhy">C&T</a>.
+		</strong>
+	</footer>
+</body>
+</html>

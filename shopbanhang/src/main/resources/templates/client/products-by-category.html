@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html layout:decorator="client/template">
+<head>
+<meta charset="UTF-8">
+<title>Thể loại</title>
+</head>
+<body layout:fragment="content" th:remove="tag">
+
+	<form th:action="@{/productsByCategory}" method="get"></form>
+
+	<div id="body">
+		<!-- breadcrumb -->
+		<div class="container">
+			<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+				<a class=" tet stext-109 cl8 hov-cl1 trans-04">
+					<p th:text="#{menu.category}"></p>
+
+				</a> <a class="stext-109 cl8 hov-cl1 trans-04"> <i
+					class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i> <span
+					class="tet" th:text="#{menu.ds}"></span>
+
+				</a>
+
+			</div>
+
+
+			<section class="sec-product-detail bg0 p-t-65 p-b-60">
+				<div class="row isotope-grid">
+					<div th:each="pro :${productList}">
+						<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+							<!-- Block2 -->
+							<div class="block2">
+								<div class="block2-pic hov-img0">
+									<img th:src="@{'/download?image='+${pro.image}}"
+										alt="IMG-PRODUCT"> <a
+										th:href="@{ '/product?id='+${pro.id}}"
+										class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+										Xem chi tiết </a>
+								</div>
+								<div class="tongnamegia">
+									<div class="divname">
+										<a th:href="@{ '/product?id='+${pro.id}}" class="tensp">
+											<p th:text="${pro.name }"></p>
+										</a>
+									</div>
+
+
+									<div class="divgia">
+										<span class="giasp1"
+											th:text="${#numbers.formatDecimal(pro.priceOut, 0, 'COMMA', 0, 'POINT')}"></span>
+										đ
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<br> <br>
+			<nav class="blog-pagination justify-content-center d-flex">
+				<ul class="pagination">
+					<li class="previous"><a th:if="${page > 1}"
+						th:href="@{'/productsByCategory?id='+${categoryId}+'&page=' + ${page - 1}}"
+						class="page-link"> &laquo; </a></li>
+					<li class=""><a
+						th:href="@{'/productsByCategory?id='+${categoryId}+'&page=' + ${page}}"
+						class="page-link" th:text="${page}"></a></li>
+					<li class=" next"><a th:if="${page < pageCount}"
+						th:href="@{'/productsByCategory?id='+${categoryId}+'&page=' + ${page + 1}}"
+						class="page-link"> &raquo;</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<div class="flex-c-m flex-w w-full p-t-45"></div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html layout:decorator="client/template">
+
+<head>
+<meta charset="UTF-8">
+<title>Liên hệ</title>
+</head>
+<body layout:fragment="content" th:remove="tag">
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+    <div class="container rel-div pt-50">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="contact-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.240040647417!2d105.79961401476316!3d21.023079286001444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab5ccfcfd8d7%3A0x7c1d9c3bc5fc1e8!2zMTYxIENow7lhIEzDoW5nLCBMw6FuZyBUaMaw4bujbmcsIMSQ4buRbmcgxJBhLCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1589197381267!5m2!1svi!2s" 
+                    width="750" height="350" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                            </iframe>
+                            
+                </div>
+            </div>
+            <div class="col-md-4" >
+                <div class="contact-details">
+                    <h1 class="fsz-20">
+                        <span class="light-font">LIÊN HỆ</span>
+                    </h1>
+                    
+                    <ul>
+                        <li class="diachi">
+                            <strong style="color: #999999">Address:</strong>
+                            <i style="color: #525252">161 Chùa Láng, Đống Đa, Hà Nội</i>
+                        </li>
+                        <li class="diachi">
+                            <strong style="color: #999999">Phone:</strong>
+                            <i>
+                                <a href="#" style="color: #525252">0942.359.987</a>
+                                <a href="#" style="color: #525252">0988.888.888</a>
+                                <a href="#" style="color: #525252">0976.543.210</a>
+                            </i>
+                        </li>
+                        <li class="diachi">
+                            <strong style="color: #999999">Email:</strong>
+                            <i><a href="#" style="color: #525252">thanhchungt0@gmail.com</a> </i>
+                        </li>
+                    </ul>
+                    <p></p>
+                </div>
+            </div>
+            <div class="col-md-8 col-md-offset-2 container">
+                <h3 class="fsz-25 text-center">
+                    <span class="light-font">C&T.vn</span>
+                </h3>
+                <h6 class="sub-title-1 text-center">
+                    <p th:text="#{contact.tt}"></p>
+                </h6>
+                <div class="contact-form pt-50">
+                    <form class="contact-form has-validation-callback" method="post">
+                        <input name="form-type" type="hidden" value="contact">
+                        <input name="utf8" type="hidden" value="✓">
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <input class="form-control" placeholder="First and last name" data-validation="required" required type="text">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <input class="form-control" placeholder="Email" data-validation="email" required type="email"
+                                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" data-validation-error-msg="Email sai định dạng">
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <textarea style="resize:none" class="form-control" placeholder="Contact content" cols="102" rows="5"
+                                          data-validation-error-msg="Không được để trống" data-validation="required" required></textarea>
+                            </div>
+                            <div class="text-banner col-sm-12 form-group">
+                                <button href="#" class="navbar-btn btn-tinnhan">Send Message</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+</body>
+</html>

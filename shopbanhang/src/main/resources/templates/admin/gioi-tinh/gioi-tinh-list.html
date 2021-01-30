@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="admin/template">
+<head>
+<meta charset="UTF-8">
+<title>Giới Tính</title>
+<!-- Bootstrap 3.3.6 -->
+<link rel="stylesheet" th:href="@{/admin/admin/css/bootstrap.min.css}">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+<!-- DataTables -->
+<link rel="stylesheet"
+	th:href="@{/admin/admin/datatables/dataTables.bootstrap.css}">
+<!-- Theme style -->
+<link rel="stylesheet" th:href="@{/admin/admin/css/AdminLTE.min.css}">
+<!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+<link rel="stylesheet"
+	th:href="@{/admin/admin/css/skins/_all-skins.min.css}">
+<!-- DataTables -->
+<link rel="stylesheet"
+	th:href="@{/admin/admin/datatables/dataTables.bootstrap.css}">
+
+</style>
+<!-- jQuery 2.2.0 -->
+<script th:src="@{/admin/admin/jQuery/jQuery-2.2.0.min.js}"></script>
+<!-- Bootstrap 3.3.6 -->
+<script th:src="@{/admin/admin/js/bootstrap.min.js}"></script>
+<!-- DataTables -->
+<script th:src="@{/admin/admin/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/admin/admin/datatables/dataTables.bootstrap.min.js}"></script>
+<!-- SlimScroll -->
+<script th:src="@{/admin/admin/slimScroll/jquery.slimscroll.min.js}"></script>
+<!-- FastClick -->
+<script th:src="@{/admin/admin/fastclick/fastclick.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/admin/admin/js/app.min.js}"></script>
+<!-- AdminLTE for demo purposes -->
+<script th:src="@{/admin/admin/js/demo.js}"></script>
+<!-- page script -->
+</head>
+<body layout:fragment="content" th:remove="tag"
+	class="hold-transition skin-blue sidebar-mini">
+	<div class="wrapper">
+		<div class="content-wrapper">
+			<section class="content-header">
+				<h1>Danh sách giới tính</h1>
+				<br> <a th:href="@{/admin/gioiTinh/add}"><input
+					type="submit" value="Thêm Giới Tính" class="btn btn-success"/></a> <br>
+				<ol class="breadcrumb">
+					<li><a href="#"><i class="fa fa-dashboard"></i> Quản trị</a></li> >
+					<li><a href="#">Quản lý giới tính</a></li>
+				</ol>
+			</section>
+			<br>
+			<div>
+				<form th:action="@{/admin/gioiTinh/search}" method="get">
+					<label  class="col-md-2">Tìm kiếm giới tính :</label><input type="text"
+						name="keyword" placeholder="Nhập Tên Giới Tính để tìm" th:value="${keyword}" />
+					<input type="submit" class="btn btn-info btn-sm" value="Tìm Kiếm" />
+				</form>
+			</div>
+			<br>
+			<section class="content">
+				<div class="row">
+					<div class="col-xs-12">
+						<!-- Start Table -->
+						<div class="box">
+							<!-- /.box-header -->
+							<div class="box-body">
+								<table id="example1" class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th width="150px">Mã Giới Tính</th>
+											<th>Tên</th>
+											<th width="180px">Lựa Chọn</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="gioiTinh : ${gioiTinhList}">
+											<td th:text="${gioiTinh.id}"></td>
+											<td th:text="${gioiTinh.name}"></td>
+											<td><a
+												th:href="@{'/admin/gioiTinh/update?id='+${gioiTinh.id}}"><i
+													class="fa fa-edit" style="font-size: 22px"></i></a> | <a
+												th:href="@{'/admin/gioiTinh/delete?id='+${gioiTinh.id}}"><i
+													class="fa fa-times" style="font-size: 22px"></i></a></td>
+										</tr>
+									</tbody>
+
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+
+
+		</div>
+		<!-- <div>
+		<a class="btn btn-primary"
+			th:href="@{'/admin/gioiTinh/search?keyword=' + ${keyword} +'&page=' + ${page + 1}}">LOAD
+			MORE</a>
+	</div> -->
+	</div>
+	<footer
+		style="border-top: 1px solid #d2d6de; text-align: center; background: #fff; color: #444; height: 60px; line-height: 60px;">
+		<strong>Copyright &copy; 2019 | <a
+			href="http://facebook.com/chungtranhy">C&T</a>.
+		</strong>
+	</footer>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" name="viewport"
+	content="width=device-width, initial-scale=1">
+<title>Register</title>
+<link rel="stylesheet" th:href="@{/css/login.css}"> 
+
+
+</head>
+<body>
+		
+			<div class="header">
+		<div class="header-main">
+		       <h2 style="text-align: center;">Đăng Ký Tài Khoản</h2><br><br>
+			<form th:action="@{/register}" th:object="${userDTO}" method="post">
+				<div class="container">
+					Nếu bạn đã đăng ký tài khoản, vui lòng đăng nhập <a class="red"
+						th:href="@{login}">Tại Đây</a> <br /> Lưu ý: Các mục dấu sao màu
+					đỏ không được bỏ trống & phải điền đầy đủ, chính xác
+			<div class="header-bottom">
+				<div class="header-right w3agile">
+					
+					<div class="header-left-bottom agileinfo">
+						
+					<form th:action="@{/register}" th:object="${userDTO}" method="post">
+					<div>
+						<label style="color: red">*</label><label>Name</label><br />
+						<input
+							type="text" th:field="*{name}" class="form-control" />
+						<p class="erorr" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+						</div>
+					<div>
+						<label style="color: red">*</label><label>Tuổi</label><br />
+						<input type="number" th:field="*{age}" placeholder="Tuổi" class="form-control"/>
+						<p class="erorr" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></p>
+					</div>
+					<div>
+						<label style="color: red">*</label><label>Giới Tính</label><br />
+						<select name="gender">
+
+							<option value="Nam">Nam</option>
+							<option value="Nữ">Nữ</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<input
+							type="hidden" name="role" th:value="ROLE_MEMBER" />
+					</div>
+					<div>
+						<label style="color: red">*</label><label>Địa Chỉ</label> <input
+							type="text" th:field="*{address}" placeholder="Địa chỉ"  class="form-control"/>
+						<p class="erorr" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
+					</div>
+					<div>
+						<label style="color: red">*</label><label>Email</label><br /> <input
+							type="text" th:field="*{email}" placeholder="email" class="form-control" />
+						<p class="erorr" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+					</div>
+					<div >
+						<label style="color: red">*</label><label>Số Điện Thoại</label> <input
+							type="text" th:field="*{phone}" placeholder="Số Điện Thoại" class="form-control" />
+						<p class="erorr" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
+					</div>
+					<div >
+						<label style="color: red">*</label><label>Tài Khoản</label><input
+							type="text" th:field="*{username}" placeholder="Tài Khoản" class="form-control" />
+						<p class="erorr" th:if="${#fields.hasErrors('username')}"
+							th:errors="*{username}"></p>
+					</div>
+					<div >
+						<label style="color: red">*</label><label>Mật Khẩu</label><input
+							type="password" th:field="*{password}" placeholder="Mật Khẩu" class="form-control" />
+						<p class="erorr" th:if="${#fields.hasErrors('password')}"
+							th:errors="*{password}"></p>
+							<p style="color: red;" th:text="${msg}"></p>
+					</div>
+					
+						<input type="submit" value="Đăng ký">
+					</form>	
+					
+					
+						
+				</div>
+				</div>
+			  </div>
+			</div>
+		</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html layout:decorator="client/template">
+<head>
+<meta charset="UTF-8">
+<title>Thay đổi mật khẩu</title>
+<!-- Bootstrap 3.3.6 -->
+
+
+<script type="text/javascript">
+	function checkPass() {
+		var pass1 = document.getElementById('password');
+		var pass2 = document.getElementById('repassword');
+		var message = document.getElementById('confirmMessage');
+		var goodColor = "#66cc66";
+		var badColor = "#ff6666";
+		if (pass1.value.length<6||pass1.value.length>30
+				|| pass2.value.length<6||pass2.value.length>30) {
+			message.style.color = "#2677b5";
+			message.innerHTML = "Password and repassword must be at least 6->30 characters long !";
+		} else if ((pass2.value === "" || pass2.value !== pass1.value)) {
+			pass2.style.backgroundColor = badColor;
+			message.style.color = badColor;
+			message.innerHTML = "Repasswords Do Not Match!";
+		} else if (pass1.value !== "" && pass1.value === pass2.value) {
+			pass2.style.backgroundColor = goodColor;
+			message.style.color = goodColor;
+			message.innerHTML = "Passwords Match!";
+		}
+	}
+</script>
+</head>
+
+<body layout:fragment="content" th:remove="tag">
+
+	<div></div>
+
+	<br>
+	<form th:action="@{/resetpassword}" class="form-signin" method="POST">
+		<div class="container">
+			<!--  <h2 class="account-in text-center">
+                       Đăng nhập
+                   </h2> -->
+			<div class="accordion">
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xl-12">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xl-12">
+						<div class="jumbotron">
+							<div class="text-center">
+								<h3>
+									<i class="fa fa-lock fa-4x"> </i>
+								</h3>
+								<h2 class="text-center">Bạn muốn thay đổi mật khẩu?</h2>
+								<br>
+								<div class="panel-body">
+									<form autocomplete="off" class="form" id="register-form"
+										method="post" role="form">
+										<div class="form-group">
+											<div class="input-group">
+												</div>
+												<div>
+													<span>Mật khẩu mới *</span><input type="password"
+														class="form-control" name="newPassword" id="password"
+														onkeyup="checkPass(); return false" required=""
+														oninvalid="this.setCustomValidity('Hãy mật khẩu')"
+														oninput="setCustomValidity('')">
+												</div>
+
+												<div>
+													<span>Nhập lại mật khẩu *</span> <input type="password"
+														class="form-control" name="repass" id="repassword"
+														onkeyup="checkPass(); return false;">
+												</div>
+											
+										</div>
+										<p id="confirmMessage"></p>
+										<div class="form-group">
+											<input class="btn btn-lg btn-primary btn-block"
+												name="recover-submit" type="submit" value="Đổi mật khẩu">
+											</input>
+										</div>
+										
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+
+</body>
+<footer
+	style="border-top: 1px solid #d2d6de; text-align: center; background: #fff; color: #444; height: 60px; line-height: 60px;">
+	<strong>Copyright &copy; 2020 | <a
+		href="http://facebook.com/chungtranhy">C&T</a>.
+	</strong>
+</footer>
+
+</html>

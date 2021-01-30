@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="admin/template">
+<head>
+<meta charset="UTF-8" />
+<title>Hóa đơn</title>
+<!-- Bootstrap 3.3.6 -->
+<link rel="stylesheet" th:href="@{/admin/admin/css/bootstrap.min.css}">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+<!-- DataTables -->
+<link rel="stylesheet"
+	th:href="@{/admin/admin/datatables/dataTables.bootstrap.css}">
+<!-- Theme style -->
+<link rel="stylesheet" th:href="@{/admin/admin/css/AdminLTE.min.css}">
+<!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+<link rel="stylesheet"
+	th:href="@{/admin/admin/css/skins/_all-skins.min.css}">
+<!-- DataTables -->
+<link rel="stylesheet"
+	th:href="@{/admin/admin/datatables/dataTables.bootstrap.css}">
+
+<!-- jQuery 2.2.0 -->
+<script th:src="@{/admin/admin/jQuery/jQuery-2.2.0.min.js}"></script>
+<!-- Bootstrap 3.3.6 -->
+<script th:src="@{/admin/admin/js/bootstrap.min.js}"></script>
+<!-- DataTables -->
+<script th:src="@{/admin/admin/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/admin/admin/datatables/dataTables.bootstrap.min.js}"></script>
+<!-- SlimScroll -->
+<script th:src="@{/admin/admin/slimScroll/jquery.slimscroll.min.js}"></script>
+<!-- FastClick -->
+<script th:src="@{/admin/admin/fastclick/fastclick.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/admin/admin/js/app.min.js}"></script>
+<!-- AdminLTE for demo purposes -->
+<script th:src="@{/admin/admin/js/demo.js}"></script>
+<!-- page script -->
+
+</head>
+<body layout:fragment="content" th:remove="tag"
+	class="hold-transition skin-blue sidebar-mini">
+	<div class="wrapper">
+		<div class="content-wrapper">
+			<section class="content-header">
+				<h1>Chi Tiết Hóa Đơn</h1>
+				<br>
+				<ol class="breadcrumb">
+					<li><a href="#"><i class="fa fa-dashboard"></i> Quản trị</a></li> >
+					<li><a href="#">Chi Tiết Hóa Đơn</a></li>
+				</ol>
+			</section>
+			<section class="content">
+				<div class="row">
+					<div class="col-xs-12">
+						<!-- Start Table -->
+						<div class="box">
+							<!-- /.box-header -->
+							<div class="box-body">
+								<table id="example1" class="table table-bordered table-striped">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Tên Sản Phẩm</th>
+										<th>Giá Sản Phẩm</th>
+										<th>Số Lượng</th>
+										<th>Thành Tiền</th>
+										
+									</tr>
+</thead>
+<tbody>
+									<tr th:each="bp:${billProducts}">
+										<td th:text="${bp.id }"></td>
+										<td th:text="${bp.product.name }"></td>
+										<td><span th:text="${#numbers.formatDecimal(bp.product.priceOut, 0, 'COMMA', 0, 'POINT')}"></span>đ</td>
+										<td th:text="${bp.quantity }"></td>
+										<td><span th:text="${#numbers.formatDecimal(bp.product.priceOut*bp.quantity, 0, 'COMMA', 0, 'POINT')}"></span>đ</td>
+										<!-- <td><a
+											th:href="@{'/admin/delete/bill?idBill='+${bp.id }}"><i
+													class="fa fa-times" style="font-size: 22px"></i></a></td> -->
+									</tr>
+									</tbody>
+									
+
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			</div>
+			</div>
+			<footer
+				style="border-top: 1px solid #d2d6de; text-align: center; background: #fff; color: #444; height: 60px; line-height: 60px;">
+				<strong>Copyright &copy; 2020 | <a
+			href="http://facebook.com/chungtranhy">C&T</a>.
+				</strong>
+			</footer>
+</body>
+</html>

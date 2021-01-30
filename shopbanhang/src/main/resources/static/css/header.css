@@ -1,0 +1,46 @@
+ul.headerul{
+	list-style-type: none;
+	position: relative;
+	float: left;
+	
+}
+li.headerli {
+  margin: 0 30px;
+  float: left;
+  left: -50%;
+  position: relative;
+}
+.header-top {
+    width: 100%;
+}
+.imgbanner{
+	width: 60%;
+	margin-top: 7px;
+}
+img.icon {
+    width: 30px;
+    margin-top: 10px;
+}
+input.textsearch {
+    float: left;
+    height: 35px;
+    width: 188px;
+    border: 1px solid red;
+}
+button.buttonsearch {
+    float: left;
+    border: none;
+    background-color: #FF00FF;
+    height: 35px;
+}
+
+img.iconsearch {
+    width: 23px;
+}
+
+.search {
+    float: right;
+    margin-top: 9px;
+    /* margin-left: 206px; */
+    margin-right: 90px;
+}

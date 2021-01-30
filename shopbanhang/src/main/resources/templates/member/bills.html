@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html layout:decorator="client/template"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<title>Đơn hàng</title>
+</head>
+<body layout:fragment="content" th:remove="tag">
+	<br>
+	<br>
+	<br>
+	<div class="container">
+		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+			<a th:href="@{/products}" class=" tet stext-109 cl8 hov-cl1 trans-04">
+				<p th:text="#{menu.home}">
+			</a> <a class="stext-109 cl8 hov-cl1 trans-04"> <i
+				class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i> <span
+				class="tet" th:text="#{menu.bill}"></span>
+
+			</a>
+
+		</div>
+	</div>
+	<!--  <form th:action="@{/member/bills}"
+				method="get">
+				<br> <label class="col-md-2">Trạng thái đơn hàng :</label> 
+				<select name="trangthai">	
+					<option value="">tùy chọn</option>
+					<option value="NEW">đơn hàng mới chờ xác nhận</option>
+					<option value="DA XAC NHAN">đã xác nhận</option>
+					<option value="DA NHAN HANG">đã nhận hàng</option>
+					<option value="DANG VAN CHUYEN">đang vận chuyển</option>
+					<option value="HUY">đơn bị hủy</option>
+				</select>
+				
+				<input type="submit"
+					class="btn btn-info btn-sm" value="Tìm Kiếm" />
+			</form>-->
+			<!--  <a th:href="@{/member/bills?trangthai=NEW}">Đơn hàng chờ xác nhận </a><br>
+			<a th:href="@{/member/bills?trangthai=DA+XAC+NHAN}">Đã xác nhận</a><br>
+			<a th:href="@{/member/bills?trangthai=DA+NHAN+HANG}">Đã nhận hàng</a><br>
+			<a th:href="@{/member/bills?trangthai=DANG+VAN+CHUYEN}">Đang vận chuyển</a><br>
+			<a th:href="@{/member/bills?trangthai=HUY}">đơn bị hủy</a>-->
+	<form class="bg0 p-t-75 p-b-85">
+		<div class="left">
+			<div class="row">
+				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+					<div class="m-l-25 m-r--38 m-lr-0-xl">
+						<div class="wrap-table-shopping-cart1">
+							<table class="table-shopping-cart1">
+								<tr class="table_head">
+									<th class="column-1">ID</th>
+									<th class="column-2"><p th:text="#{bill.name}"></p></th>
+									<th class="column-3"><p th:text="#{bill.diac}"></p></th>
+									<th class="column-4"><p th:text="#{bill.phone}"></p></th>
+									<th class="column-5"><p th:text="#{bill.mua}"></p></th>
+									<th class="column-6"><p th:text="#{bill.price}"></p></th>
+									<!-- <th class="column-7"><p th:text="#{bill.Discount}"></p></th> -->
+									<th class="column-8"><p th:text="#{bill.total}"></p></th>
+									<th class="column-9"><p th:text="#{bill.tthai}"></p></th>
+									 <th class="column-9" ><p th:text="#{bill.tranfer}"></p></th>
+									<th class="column-10"><p th:text="#{bill.function}"></p></th>
+								</tr>
+
+								<tr th:each="b:${bills }" class="table_row">
+									<td th:text="${b.id }" class="column-1"></td>
+									<td th:text="${b.user.name}" class="column-2"></td>
+									<td th:text="${b.user.address}" class="column-3"></td>
+									<td th:text="${b.user.phone}" class="column-4"></td>
+									<td th:text="${b.buyDate }" class="column-5"></td>
+									<td><span th:text="${#numbers.formatDecimal(b.total, 0, 'COMMA', 0, 'POINT')}"></span>đ</td>
+									<!-- <td th:text="${b.discountPercent}+'%'" class="column-7"></td> -->
+									<td><span th:text="${#numbers.formatDecimal(b.priceTotal, 0, 'COMMA', 0, 'POINT')}"></span>đ</td>
+									<td th:text="${b.trangThai }" class="column-9"></td>
+									<td  th:switch="${b.giaoHang } eq 'DANG VAN CHUYEN'">
+										<div th:case="${true}">
+											<a th:href="@{'/member/updateGiao/bill?billId='+${b.id}}">Đã nhận hàng thành công</a>
+										</div>
+										<div th:case="*">
+											<label th:text="${b.giaoHang }"></label>
+										</div>
+
+									</td>
+									<td class="column-10"><a
+										th:href="@{'/member/bill?billId='+${b.id }}"><img
+											th:src="@{'/image/icons/list.png'}" /></a></td>
+								</tr>
+
+							</table>
+						</div>
+						<div
+							class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+							<div class="flex-w flex-m m-r-20 m-tb-5">
+								<a
+									class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5"
+									th:if="${admin}==null"
+									th:href="@{'/member/bills?keyword=' + ${keyword} +'&page=' + ${page + 1}}"><p
+										th:text="#{bill.load}"></p></a> <a
+									class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5"
+									th:if="${admin}!=null"
+									th:href="@{'/admin/bill/search?keyword=' + ${keyword} +'&page=' + ${page + 1}}"><p
+										th:text="#{bill.load}"></p></a>
+							</div>
+
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</form>
+	<script th:src="@{/js/main.js}" type="text/javascript"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/vendor/jquery/jquery-3.2.1.min.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/vendor/animsition/js/animsition.min.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/vendor/bootstrap/js/popper.js}"></script>
+	<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/vendor/select2/select2.min.js}"></script>
+	<script>
+		$(".js-select2").each(function() {
+			$(this).select2({
+				minimumResultsForSearch : 20,
+				dropdownParent : $(this).next('.dropDownSelect2')
+			});
+		})
+	</script>
+	<!--===============================================================================================-->
+	<script th:src="@{/vendor/daterangepicker/moment.min.js}"></script>
+	<script th:src="@{/vendor/daterangepicker/daterangepicker.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/vendor/slick/slick.min.js}"></script>
+	<script th:src="@{/js/slick-custom.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/vendor/parallax100/parallax100.js}"></script>
+	<script>
+		$('.parallax100').parallax100();
+	</script>
+	<!--===============================================================================================-->
+	<script src="vendor/MagnificPopup/jquery.magnific-popup.min.js}"></script>
+	<script>
+		$('.gallery-lb').each(function() { // the containers for all your galleries
+			$(this).magnificPopup({
+				delegate : 'a', // the selector for gallery item
+				type : 'image',
+				gallery : {
+					enabled : true
+				},
+				mainClass : 'mfp-fade'
+			});
+		});
+	</script>
+	<!--===============================================================================================-->
+	<script th:src="@{/vendor/isotope/isotope.pkgd.min.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/vendor/sweetalert/sweetalert.min.js}"></script>
+	<script>
+		$('.js-addwish-b2').on('click', function(e) {
+			e.preventDefault();
+		});
+
+		$('.js-addwish-b2').each(
+				function() {
+					var nameProduct = $(this).parent().parent().find(
+							'.js-name-b2').html();
+					$(this).on('click', function() {
+						swal(nameProduct, "is added to wishlist !", "success");
+
+						$(this).addClass('js-addedwish-b2');
+						$(this).off('click');
+					});
+				});
+
+		$('.js-addwish-detail').each(
+				function() {
+					var nameProduct = $(this).parent().parent().parent().find(
+							'.js-name-detail').html();
+
+					$(this).on('click', function() {
+						swal(nameProduct, "is added to wishlist !", "success");
+
+						$(this).addClass('js-addedwish-detail');
+						$(this).off('click');
+					});
+				});
+
+		/*---------------------------------------------*/
+
+		$('.js-addcart-detail').each(
+				function() {
+					var nameProduct = $(this).parent().parent().parent()
+							.parent().find('.js-name-detail').html();
+					$(this).on('click', function() {
+						swal(nameProduct, "is added to cart !", "success");
+					});
+				});
+	</script>
+	<!--===============================================================================================-->
+	<script th:src="@{/vendor/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+	<script>
+		$('.js-pscroll').each(function() {
+			$(this).css('position', 'relative');
+			$(this).css('overflow', 'hidden');
+			var ps = new PerfectScrollbar(this, {
+				wheelSpeed : 1,
+				scrollingThreshold : 1000,
+				wheelPropagation : false,
+			});
+
+			$(window).on('resize', function() {
+				ps.update();
+			})
+		});
+	</script>
+	<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+</body>
+</html>

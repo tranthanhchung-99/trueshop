@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html layout:decorator="client/template">
+<head>
+<meta charset="UTF-8">
+<title>Chi tiết sản phẩm</title>
+</head>
+<body layout:fragment="content" th:remove="tag">
+
+	<div id="body">
+		<!-- breadcrumb -->
+		<div class="container">
+			<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+				<a th:href="@{/products}"
+					class=" tet stext-109 cl8 hov-cl1 trans-04">
+					<p th:text="#{menu.home}">
+				</a> <a class="stext-109 cl8 hov-cl1 trans-04"> <i
+					class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i> <span
+					class="tet" th:text="${product.thuongHieuDTO.name }"></span> <i
+					class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+				</a> <span class=" tet stext-109 cl4" th:text="${product.name }">
+
+				</span>
+			</div>
+		</div>
+		<!--  <div>
+			<form th:action="@{/category/search}" method="get">
+				<input class="btn btn-primary" type="submit" value="search" /> <input
+					type="text" name="keyword" placeholder="nhap keyword"
+					th:value="${keyword}" />
+
+			</form>
+		</div>-->
+		<div class="container">
+			<div class="row sanpham">
+				<div class=" col-sm-6 ">
+					<img class=" anhproduct"
+						th:src="@{'/download?image='+${product.image }}" alt="#" />
+				</div>
+				<div class="col-sm-6">
+					<h1 class="tenp" th:text="${product.name }"></h1>
+					<div class="conten price">
+						<label class="categoryname">Giá: </label> <span
+							th:text="${#numbers.formatDecimal(product.priceOut, 0, 'COMMA', 0, 'POINT')}"></span>
+						đ
+					</div>
+					<div class="row kc">
+						<div class="col-sm-6">
+							<!-- <div class="conten">
+								<div class="row-title">
+									<label class="categoryname">Thể loại: </label> <span
+										th:text="${product.category.name }"></span>
+								</div>
+							</div> -->
+							<div class="conten">
+								<div class="row-title">
+									<label class="categoryname">Thương hiệu: </label> <span
+										th:text="${product.thuongHieuDTO.name }"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6">
+
+							<div class="conten ne">
+								<div class="row-title">
+									<label class="categoryname">Kích thước: </label> <span
+										th:text="${product.kichThuocDTO.name }"></span>
+								</div>
+
+							</div>
+
+
+							<!-- <div class="conten ne">
+								<div class="row-title">
+									<label class="categoryname">CHON SIZE: </label>
+									<p th:each="size:${size}">
+										<a th:href="@{'/product?id='+${size.id}}"
+											th:text="${size.kichThuocDTO.name}"></a>
+									</p>
+								</div>
+							</div> -->
+						</div>
+
+						<div id="menu" class="price1" th:each="size:${size}">
+							<ul>
+								<li><a th:href="@{'/product?id='+${size.id}}"
+									th:text="${size.kichThuocDTO.name}"></a></li>
+
+							</ul>
+						</div>
+					</div>
+					<div class="buttoncart" th:switch="${product.soLuong }>0">
+						<a class="cartbuton" th:case="${true}"
+							th:href="@{'/member/add-to-cart?pid='+${product.id}}"
+							role="button"> THÊM VÀO GIỎ HÀNG </a> <a class="cartbuton"
+							role="button" th:case="*">HẾT HÀNG</a> <a class="cartbuton"
+							title="0965135408" href="https://zalo.me/0942359987">Liên hệ
+							qua zalo</a>
+					</div>
+
+					<br>
+					<div class="sale_shop">
+						<strong>KHUYẾN MÃI KHI MUA HÀNG</strong>
+						<ul>
+							<li>Miễn phí ship hàng toàn quốc</li>
+							<li>Với đơn hàng trên 1 triệu sẽ được tặng 1 đôi tất kèm
+								theo.</li>
+							<li>Nhận hàng và kiểm tra trước khi thanh toán.</li>
+							<li>Giao hàng nhanh 60 phút trong nội thành Hà Nội.</li>
+						</ul>
+					</div>
+
+					<div class="conten net">
+						<label class="categoryname">Mô tả :</label> <span
+							th:text="${product.description }"></span>
+
+					</div>
+				</div>
+			</div>
+			<div class="product-tabs-wrapper">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12">
+
+							<div class="woocommerce-tabs wc-tabs-wrapper tabs-layout-tabs">
+								<ul class="tabs wc-tabs">
+
+									<li class="basel_additional_tab_tab active"><a
+										href="#tab-basel_additional_tab">Cách chọn size giày</a></li>
+								</ul>
+
+								<div class="basel-tab-wrapper">
+
+									<div
+										class="woocommerce-Tabs-panel woocommerce-Tabs-panel--basel_additional_tab panel entry-content wc-tab"
+										id="tab-basel_additional_tab" style="display: block;">
+										<p>Để chọn size giày phù hợp với chân của mình, bạn có thể
+											làm theo cách sau:</p>
+										<strong>Bước 1:</strong> Đo chiều dài bàn chân theo huớng dẫn
+										ở hình dưới:
+										<div class="hinh">
+											<p>
+												<img class="size-large wp-image-2318 aligncenter"
+													src="https://shopgiayreplica.com/wp-content/uploads/2018/07/cach-chon-size-giay-nike-adidas-1.jpg"
+													alt="" width="720" height="308">
+											</p>
+										</div>
+										<p>
+											<strong>Bước 2:</strong> Sau khi đo được chiều dài bàn chân,
+											bạn có thể đối chiếu với bảng size giày dưới để chọn được
+											size giày phù hợp cho mình. Ví dụ chiều dài bàn chân là
+											26.5cm thì size giày nam Adidas phù hợp là 42.
+										</p>
+										<div class="hinh">
+											<img class="size-full wp-image-2316 aligncenter"
+												src="https://shopgiayreplica.com/wp-content/uploads/2018/07/cach-chon-size-giay-nike-adidas-2.jpg"
+												alt="" width="720" height="491"> <img
+												class="size-large wp-image-2317 aligncenter"
+												src="https://shopgiayreplica.com/wp-content/uploads/2018/07/cach-chon-size-giay-nike-adidas-3.jpg"
+												alt="" width="720" height="384">
+										</div>
+										<p>Chúc các bạn lựa chọn được đôi giày ưng ý :)</p>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="formcomment">
+				<form th:action="@{/member/comment}" method="post">
+					<input type="hidden" name="productId" th:value="${product.id}" />
+					<textarea class="binhluan" type="text" name="comment"
+						placeholder="Bình luận của bạn..."></textarea>
+
+					<input class="comment" type="submit" value="Gửi nội dung" />
+				</form>
+			</div>
+
+			<div class="noidungcooment" th:each="c:${commentProduct}">
+				<div class="commentform">
+					<div class="commentname" th:text="${c.userDTO.name}"></div>
+					<div class="commentdate" th:text="${c.commentDate}"></div>
+				</div>
+				<div class="commentn" th:text="${c.comment}"></div>
+				<hr>
+			</div>
+			<!-- 	<div>
+				<p>
+					danh gia (<label th:text="${dem}"> </label>)
+				</p>
+				<label th:text="${totalStar}"> </label>
+
+			</div> -->
+			<div class="row">
+				<div class="col-sm-8">
+
+					<div class="startcooment" th:each="r:${reviews}">
+						<div class="starform ">
+							<div class="starname" th:text="${r.userDTO.name}"></div>
+							<div class="startdate" th:text="${r.starNumber}"></div>
+							<img class="sao" th:src="@{'/image/icons/star.png'}">
+
+						</div>
+
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="stars">
+						<form th:action="@{/member/review}" method="post">
+							<input type="hidden" name="productId" th:value="${product.id}" />
+							<input class="star star-5" type="radio" id="star5"
+								name="starNumber" value="5" /> <label class=" star star-5 full"
+								for="star5" title="Awesome - 5 stars"></label> <input
+								class="star star-4" type="radio" id="star4" name="starNumber"
+								value="4" /> <label class="star star-4 full" for="star4"
+								title="Pretty good - 4 stars"></label> <input
+								class="star star-3" type="radio" id="star3" name="starNumber"
+								value="3" /> <label class=" star star-3 full" for="star3"
+								title="Meh - 3 stars"></label> <input class="star star-2"
+								type="radio" id="star2" name="starNumber" value="2" /> <label
+								class=" star star-2 full" for="star2"
+								title="Kinda bad - 2 stars"></label> <input class="star star-1"
+								type="radio" id="star1" name="starNumber" value="1" /> <label
+								class="star star-1 full" for="star1"
+								title="Sucks big time - 1 star"></label> <input type="submit"
+								class="butonstar" value="Gửi" />
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<section class="sec-relate-product bg0 p-t-45 p-b-105">
+			<div class="container">
+				<div class="p-b-45">
+					<h3 class="ltext-106 cl5 txt-center">Sản phẩm liên quan</h3>
+				</div>
+
+				<!-- Slide2 -->
+				<div class="wrap-slick2">
+					<div class="slick2">
+						<div th:each="pro :${productList}">
+							<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
+
+								<!-- Block2 -->
+								<div class="block2">
+									<div class="block2-pic hov-img0">
+										<img th:src="@{'/download?image='+${pro.image}}"
+											alt="IMG-PRODUCT"> <a
+											th:href="@{ '/product?id='+${pro.id}}"
+											class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+											Xem chi tiết </a>
+									</div>
+
+									<div class="tongnamegia">
+										<div class="divname">
+											<a th:href="@{ '/product?id='+${pro.id}}" class="tensp">
+												<p th:text="${pro.name }"></p>
+											</a>
+										</div>
+
+
+										<div class="divgia">
+											<span class="giasp1"
+												th:text="${#numbers.formatDecimal(pro.priceOut, 0, 'COMMA', 0, 'POINT')}"></span>
+											đ
+										</div>
+									</div>
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+
+</body>
+</html>

@@ -1,0 +1,181 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html layout:decorator="admin/template">
+<head>
+<meta charset="UTF-8">
+<title>Cập Nhật Sản Phẩm</title>
+<!-- Bootstrap 3.3.6 -->
+<link rel="stylesheet" th:href="@{/admin/admin/css/bootstrap.min.css}">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+<!-- DataTables -->
+<link rel="stylesheet"
+	th:href="@{/admin/admin/datatables/dataTables.bootstrap.css}">
+<!-- Theme style -->
+<link rel="stylesheet" th:href="@{/admin/admin/css/AdminLTE.min.css}">
+<!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+<link rel="stylesheet"
+	th:href="@{/admin/admin/css/skins/_all-skins.min.css}">
+
+<!-- jQuery 2.2.0 -->
+<script th:src="@{/admin/admin/jQuery/jQuery-2.2.0.min.js}"></script>
+<!-- Bootstrap 3.3.6 -->
+<script th:src="@{/admin/admin/js/bootstrap.min.js}"></script>
+<!-- DataTables -->
+<script th:src="@{/admin/admin/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/admin/admin/datatables/dataTables.bootstrap.min.js}"></script>
+<!-- SlimScroll -->
+<script th:src="@{/admin/admin/slimScroll/jquery.slimscroll.min.js}"></script>
+<!-- FastClick -->
+<script th:src="@{/admin/admin/fastclick/fastclick.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/admin/admin/js/app.min.js}"></script>
+<!-- AdminLTE for demo purposes -->
+<script th:src="@{/admin/admin/js/demo.js}"></script>
+</head>
+<body layout:fragment="content" th:remove="tag"
+	class="hold-transition skin-blue sidebar-mini">
+
+	<div class="wrapper">
+		<div class="content-wrapper">
+		<section class="content-header">
+				<h1>Sửa Thông Tin Sản Phẩm</h1>
+				<br>
+				<ol class="breadcrumb">
+					<li><a href="#"><i class="fa fa-dashboard"></i> Quản trị</a></li> >
+					<li><a href="#">Sửa Thông Tin Sản Phẩm </a></li>
+				</ol>
+			</section>
+			<div class="">
+				<form th:action="@{/admin/product/update}" th:object="${product}"
+					method="post" enctype="multipart/form-data">
+					<fieldset>
+						
+						<div class="form-group">
+							<label class="col-md-1 control-label">ID</label>
+							<div class="col-md-3">
+								<input type="text" readonly="readonly" class="form-control name"
+									th:field="*{id}" />
+							</div>
+							<br>
+						</div>
+						<br>
+						<div class="form-group">
+							<label class="col-md-1 control-label">Tên sản phẩm</label>
+							<div class="col-md-3">
+								<input type="text" th:field="*{name}" class="form-control name" placeholder="Nhập Tên Sản Phẩm"/>
+								<p style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">error name</p>
+							</div>
+						</div>
+						<br>
+						<br>
+						<br>
+						<div class="form-group">
+							<label class="col-md-1 control-label">Giá Nhập</label>
+							<div class="col-md-3">
+								<input type="number" th:field="*{priceIn}" class="form-control name" placeholder="Nhập Giá"/>
+								<p style="color: red;" th:if="${#fields.hasErrors('priceIn')}"
+									th:errors="*{priceIn}">error price</p>
+							</div>
+						</div>
+						<br><br><br>
+						<div class="form-group">
+							<label class="col-md-1 control-label">Giá Bán</label>
+							<div class="col-md-3">
+								<input type="number" th:field="*{priceOut}" class="form-control name" placeholder="Nhập Giá"/>
+								<p style="color: red;" th:if="${#fields.hasErrors('priceOut')}"
+									th:errors="*{priceOut}">error price</p>
+							</div>
+						</div>
+						<br>
+						<br><br>
+						<div class="form-group">
+							<label class="col-md-1 control-label">Mô tả</label>
+							<div class="col-md-3">
+								<textarea rows="" cols="" th:field="*{description}" class="form-control name" placeholder="Hãy Mô Tả Lại Sản Phẩm"></textarea>
+							</div>
+						</div>
+						<br>
+						<br><br>
+						<div class="form-group">
+							<label class="col-md-1 control-label">Số Lượng</label>
+							<div class="col-md-3">
+								<input type="number" th:field="*{soLuong}" class="form-control name" placeholder="Nhập Số Lượng Muốn Thay Đổi"/>
+								<p style="color: red;" th:if="${#fields.hasErrors('soLuong')}" th:errors="*{soLuong}" >error sl</p>
+							</div>
+						</div>
+						<br>
+						<br><br>
+						<div class="form-group">
+							<label class="col-md-1 control-label">Thương Hiệu</label>
+							<div class="col-md-3">
+								<select th:field="*{thuongHieuDTO.id}" class="form-control name">
+									<option th:each="thuonghieu: ${thuongHieuList}"
+										th:value="${thuonghieu.id}" th:text="${thuonghieu.name}"></option>
+								</select>
+							</div>
+						</div>
+						<br>
+						<br><br>
+						<div>
+							<label class="col-md-1 control-label">Kích thước</label>
+							<div class="col-md-3">
+								<select th:field="*{kichThuocDTO.id}" class="form-control name">
+									<option th:each="kichthuoc: ${kichThuocList}"
+										th:value="${kichthuoc.id}" th:text="${kichthuoc.name}"></option>
+								</select>
+							</div>
+						</div>
+						<br>
+						<br><br>
+						<div>
+							<label class="col-md-1 control-label">Thể Loại</label>
+							<div class="col-md-3">
+								<select th:field="*{category.id}" class="form-control name">
+									<option th:each="id: ${categoryList}" th:value="${id.id}"
+										th:text="${id.name}"></option>
+								</select>
+							</div>
+						</div>
+						<br>
+						<br><br>
+						
+						<br>
+						<br><br>
+						<div>
+							<label class="col-md-1 control-label">Hình Ảnh</label>
+							<div class="col-md-3">
+								<input type="file" name="multipartFile" accept="image/*"/>
+								 <p style="color: red;" th:if="${#fields.hasErrors('multipartFile')}" th:errors="*{multipartFile}">error file</p>
+								 <p style="color: red;" th:text="${msg}"></p>
+							</div>
+						</div>
+						<br>
+						<br><br>
+						<div class="form-group">
+							<label class="col-md-1 control-label" for="submit"></label>
+							<div class="col-md-3">
+								<button type="submit" class="btn btn-info">Sửa</button>
+								<a type="button" class="btn btn-danger"
+										th:href="@{/admin/product/search}">Quay lại</a>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+
+			</div>
+		</div>
+	</div>
+<footer
+		style="border-top: 1px solid #d2d6de; text-align: center; background: #fff; color: #444; height: 60px; line-height: 60px;">
+		<strong>Copyright &copy; 2020 | <a
+			href="http://facebook.com/chungtranhy">C&T</a>.
+		</strong>
+	</footer>
+</body>
+</html>

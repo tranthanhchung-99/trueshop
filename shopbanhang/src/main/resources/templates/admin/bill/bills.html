@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="admin/template">
+<head>
+<meta charset="UTF-8" />
+<title>Hóa đơn</title>
+<!-- Bootstrap 3.3.6 -->
+<link rel="stylesheet" th:href="@{/admin/admin/css/bootstrap.min.css}">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+<!-- DataTables -->
+<link rel="stylesheet"
+	th:href="@{/admin/admin/datatables/dataTables.bootstrap.css}">
+<!-- Theme style -->
+<link rel="stylesheet" th:href="@{/admin/admin/css/AdminLTE.min.css}">
+<!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+<link rel="stylesheet"
+	th:href="@{/admin/admin/css/skins/_all-skins.min.css}">
+<!-- DataTables -->
+<link rel="stylesheet"
+	th:href="@{/admin/admin/datatables/dataTables.bootstrap.css}">
+
+<style>
+#rightContent {
+	
+}
+
+#rightContent h3 {
+	font-size: 20px;
+	font-weight: normal;
+	padding: 0;
+	margin: 5px;
+	border-bottom: 1px dashed #dcdcdc;
+}
+</style>
+<!-- jQuery 2.2.0 -->
+<script th:src="@{/admin/admin/jQuery/jQuery-2.2.0.min.js}"></script>
+<!-- Bootstrap 3.3.6 -->
+<script th:src="@{/admin/admin/js/bootstrap.min.js}"></script>
+<!-- DataTables -->
+<script th:src="@{/admin/admin/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/admin/admin/datatables/dataTables.bootstrap.min.js}"></script>
+<!-- SlimScroll -->
+<script th:src="@{/admin/admin/slimScroll/jquery.slimscroll.min.js}"></script>
+<!-- FastClick -->
+<script th:src="@{/admin/admin/fastclick/fastclick.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/admin/admin/js/app.min.js}"></script>
+<!-- AdminLTE for demo purposes -->
+<script th:src="@{/admin/admin/js/demo.js}"></script>
+<!-- page script -->
+</head>
+<body layout:fragment="content" th:remove="tag"
+	class="hold-transition skin-blue sidebar-mini">
+	<div class="wrapper">
+		<div class="content-wrapper">
+			<section class="content-header">
+				<h1>Danh Sách Hóa Đơn</h1>
+				<br>
+				<ol class="breadcrumb">
+					<li><a href="#"><i class="fa fa-dashboard"></i> Quản trị</a></li> >
+					<li><a href="#">Danh Sách Hóa Đơn</a></li>
+				</ol>
+			</section>
+			  <form  th:action="@{/admin/bill/search}"
+				method="get">
+				<br> <label >Khách Hàng :</label> 
+				<input type="text" name="userName" th:value="${userName}" placeholder="Tìm theo tên khách hàng">
+				
+				<input type="submit"
+					class="btn btn-info btn-sm" value="Tìm Kiếm" />
+			</form>
+			<!--  <a th:href="@{/admin/bill/search?keyword=NEW}">Đơn hàng chờ xác nhận </a><br>
+			<a th:href="@{/admin/bill/search?keyword=DA+XAC+NHAN}">Đã xác nhận</a><br>
+			<a th:href="@{/admin/bill/search?keyword=DA+NHAN+HANG}">Đã nhận hàng</a><br>
+			<a th:href="@{/admin/bill/search?keyword=DANG+VAN+CHUYEN}">Đang vận chuyển</a><br>
+			<a th:href="@{/admin/bill/search?keyword=HUY}">đơn bị hủy</a>-->
+			
+			
+		
+			<div class=col-md-3><h3>Đơn hàng chờ xác nhận</h3></div>
+			<br><br><br>
+			<section class="content">
+				<div class="row">
+					<div class="col-xs-12">
+						<!-- Start Table -->
+						<div class="box">
+							<!-- /.box-header -->
+							<div class="box-body">
+							
+								<table id="example1" class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th>Mã Hóa Đơn</th>
+											<th>Tên người mua</th>
+											<th>Địa chỉ</th>
+											<th>Số điện hoại</th>
+											<th>Thời gian mua</th>
+											<th>Giá</th>
+											
+											<th>Trạng thái</th>
+											<th >Vận chuyển </th>
+											<th>Thực thu</th>
+											<th>SĐT Nhận Hàng</th>
+											<th>Nơi nhận</th>
+											<th>Phương thức thanh toán</th>
+											<th>Chi tiết</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="b:${bills }">
+											<td th:text="${b.id }"></td>
+											<td th:text="${b.user.name}"></td>
+											<td th:text="${b.user.address}"></td>
+											<td th:text="${b.user.phone}"></td>
+											<td th:text="${b.buyDate }"></td>
+											<td><span th:text="${#numbers.formatDecimal(b.total, 0, 'COMMA', 0, 'POINT')}"></span>đ</td>
+											
+											<td th:switch="${b.trangThai }">
+												<div th:case="'NEW'">
+													<a th:href="@{'/admin/updateMua/bill?billId='+${b.id}}"><button class="btn btn-success">Xác nhận giao hàng</button></a>
+													<a th:href="@{'/admin/updateHuy/bill?billId='+${b.id}}"><button class="btn btn-danger">Hủy Đơn</button></a>
+												</div>
+												<div th:case="'NEWS'">
+													<a th:href="@{'/admin/updateMua/bill?billId='+${b.id}}"><button class="btn btn-success">Đã nhận tiền chuyển giao hàng</button></a>
+													<a th:href="@{'/admin/updateHuy/bill?billId='+${b.id}}"><button class="btn btn-danger">Hủy Đơn</button></a>
+												</div>
+												<div th:case="*">
+													<label th:text="${b.trangThai }"></label>
+												</div>
+
+											</td>
+											<td th:switch="${b.trangThai } eq 'DA XAC NHAN'">
+												<div th:case="${true}">
+													<a th:href="@{'/admin/updateGiao/bill?billId='+${b.id}}"><button class="btn btn-info">Giao Hàng</button></a>
+												</div>
+												<!--  <div th:case="''">
+													<a th:href="@{'/admin/updateGiao/bill?billId='+${b.id}}"><button class="btn btn-info">Giao Hàng</button></a>
+												</div>-->
+												<div th:case="*">
+													<label th:text="${b.giaoHang }"></label>
+												</div>
+
+											</td>
+											<td><span th:text="${#numbers.formatDecimal(b.priceTotal, 0, 'COMMA', 0, 'POINT')}"></span>đ</td>
+											<td th:text="${b.inforBillDTO.phoneNumber}"></td>
+											<td th:text="${b.inforBillDTO.address}"></td>
+											<td th:text="${b.inforBillDTO.method}"></td>
+											<td><a
+												th:href="@{'/admin/billproduct/search?idBill='+${b.id }}"><i
+													class="fa fa-eye" style="font-size: 22px"></i></a><!-- |<a
+												th:href="@{'/admin/delete/bills?idBill='+${b.id }}"><i
+													class="fa fa-times" style="font-size: 22px"></i></a> --></td>
+										</tr>
+									</tbody>
+
+
+
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<div class=col-md-10><h3>Đơn hàng đang xác nhận chờ giao </h3></div>
+			<br><br><br>
+			<section class="content">
+				<div class="row">
+					<div class="col-xs-12">
+						<!-- Start Table -->
+						<div class="box">
+							<!-- /.box-header -->
+							<div class="box-body">
+								<table id="example1" class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th>Mã Hóa Đơn</th>
+											<th>Tên người mua</th>
+											<th>Địa Chỉ</th>
+											<th>Số Điện Thoại</th>
+											<th>Thời Gian Mua</th>
+											<th>Giá</th>
+											
+											<th>Trạng Thái</th>
+											<th >Vận chuyển </th>
+											<th>Chi Tiết Giá</th>
+											<th>SĐT Đặt Hàng</th>
+											<th>Nơi Nhận</th>
+											<th>Phương Thức Thanh Toán</th>
+											<th>Lựa Chọn</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="b:${bills1 }">
+											<td th:text="${b.id }"></td>
+											<td th:text="${b.user.name}"></td>
+											<td th:text="${b.user.address}"></td>
+											<td th:text="${b.user.phone}"></td>
+											<td th:text="${b.buyDate }"></td>
+											<td><span th:text="${#numbers.formatDecimal(b.total, 0, 'COMMA', 0, 'POINT')}"></span>đ</td>
+											
+											<td th:switch="${b.trangThai }">
+												<div th:case="'NEW'">
+													<a th:href="@{'/admin/updateMua/bill?billId='+${b.id}}"><button class="btn btn-success">Xác nhận giao hàng</button></a>
+													<a th:href="@{'/admin/updateHuy/bill?billId='+${b.id}}"><button class="btn btn-danger">Hủy Đơn</button></a>
+												</div>
+												<div th:case="'NEWS'">
+													<a th:href="@{'/admin/updateMua/bill?billId='+${b.id}}"><button class="btn btn-success">Đã nhận tiền chuyển giao hàng</button></a>
+													<a th:href="@{'/admin/updateHuy/bill?billId='+${b.id}}"><button class="btn btn-danger">Hủy Đơn</button></a>
+												</div>
+												<div th:case="*">
+													<label th:text="${b.trangThai }"></label>
+												</div>
+
+											</td>
+											<td th:switch="${b.trangThai } eq 'DA XAC NHAN'">
+												<div th:case="${true}">
+													<a th:href="@{'/admin/updateGiao/bill?billId='+${b.id}}"><button class="btn btn-info">Giao Hàng</button></a>
+												</div>
+												<!--  <div th:case="''">
+													<a th:href="@{'/admin/updateGiao/bill?billId='+${b.id}}"><button class="btn btn-info">Giao Hàng</button></a>
+												</div>-->
+												<div th:case="*">
+													<label th:text="${b.giaoHang }"></label>
+												</div>
+
+											</td>
+											<td><span th:text="${#numbers.formatDecimal(b.priceTotal, 0, 'COMMA', 0, 'POINT')}"></span>đ</td>
+											<td th:text="${b.inforBillDTO.phoneNumber}"></td>
+											<td th:text="${b.inforBillDTO.address}"></td>
+											<td th:text="${b.inforBillDTO.method}"></td>
+											<td><a
+												th:href="@{'/admin/billproduct/search?idBill='+${b.id }}"><i
+													class="fa fa-eye" style="font-size: 22px"></i></a><!-- |<a
+												th:href="@{'/admin/delete/bills?idBill='+${b.id }}"><i
+													class="fa fa-times" style="font-size: 22px"></i></a> --></td>
+										</tr>
+									</tbody>
+
+
+
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<div class=col-md-10><h3>Đơn hàng đang vận chuyển</h3></div>
+			<br><br><br>
+			<section class="content">
+				<div class="row">
+					<div class="col-xs-12">
+						<!-- Start Table -->
+						<div class="box">
+							<!-- /.box-header -->
+							<div class="box-body">
+								<table id="example1" class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th>Mã Hóa Đơn</th>
+											<th>Tên người mua</th>
+											<th>Địa Chỉ</th>
+											<th>Số Điện Thoại</th>
+											<th>Thời Gian Mua</th>
+											<th>Giá</th>
+											
+											<th>Trạng Thái</th>
+											<th >Vận chuyển </th>
+											<th>Chi Tiết Giá</th>
+											<th>SĐT Đặt Hàng</th>
+											<th>Nơi Nhận</th>
+											<th>Phương Thức Thanh Toán</th>
+											<th>Lựa Chọn</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="b:${bills3 }">
+											<td th:text="${b.id }"></td>
+											<td th:text="${b.user.name}"></td>
+											<td th:text="${b.user.address}"></td>
+											<td th:text="${b.user.phone}"></td>
+											<td th:text="${b.buyDate }"></td>
+											<td><span th:text="${#numbers.formatDecimal(b.total, 0, 'COMMA', 0, 'POINT')}"></span>đ</td>
+											
+											<td th:switch="${b.trangThai }">
+												<div th:case="'NEW'">
+													<a th:href="@{'/admin/updateMua/bill?billId='+${b.id}}"><button class="btn btn-success">Xác nhận giao hàng</button></a>
+													<a th:href="@{'/admin/updateHuy/bill?billId='+${b.id}}"><button class="btn btn-danger">Hủy Đơn</button></a>
+												</div>
+												<div th:case="'NEWS'">
+													<a th:href="@{'/admin/updateMua/bill?billId='+${b.id}}"><button class="btn btn-success">Đã nhận tiền chuyển giao hàng</button></a>
+													<a th:href="@{'/admin/updateHuy/bill?billId='+${b.id}}"><button class="btn btn-danger">Hủy Đơn</button></a>
+												</div>
+												<div th:case="*">
+													<label th:text="${b.trangThai }"></label>
+												</div>
+
+											</td>
+											<td th:switch="${b.trangThai } eq 'DA XAC NHAN'">
+												<div th:case="${true}">
+													<a th:href="@{'/admin/updateGiao/bill?billId='+${b.id}}"><button class="btn btn-info">Giao Hàng</button></a>
+												</div>
+												<!--  <div th:case="''">
+													<a th:href="@{'/admin/updateGiao/bill?billId='+${b.id}}"><button class="btn btn-info">Giao Hàng</button></a>
+												</div>-->
+												<div th:case="*">
+													<label th:text="${b.giaoHang }"></label>
+												</div>
+
+											</td>
+											<td><span th:text="${#numbers.formatDecimal(b.priceTotal, 0, 'COMMA', 0, 'POINT')}"></span>đ</td>
+											<td th:text="${b.inforBillDTO.phoneNumber}"></td>
+											<td th:text="${b.inforBillDTO.address}"></td>
+											<td th:text="${b.inforBillDTO.method}"></td>
+											<td><a
+												th:href="@{'/admin/billproduct/search?idBill='+${b.id }}"><i
+													class="fa fa-eye" style="font-size: 22px"></i></a><!-- |<a
+												th:href="@{'/admin/delete/bills?idBill='+${b.id }}"><i
+													class="fa fa-times" style="font-size: 22px"></i></a> --></td>
+										</tr>
+									</tbody>
+
+
+
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<div class=col-md-3><h3>Đơn hàng hoàn tất</h3></div>
+			<br><br><br>
+			<section class="content">
+				<div class="row">
+					<div class="col-xs-12">
+						<!-- Start Table -->
+						<div class="box">
+							<!-- /.box-header -->
+							<div class="box-body">
+								<table id="example1" class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th>Mã Hóa Đơn</th>
+											<th>Tên người mua</th>
+											<th>Địa Chỉ</th>
+											<th>Số Điện Thoại</th>
+											<th>Thời Gian Mua</th>
+											<th>Giá</th>
+											
+											<th>Trạng Thái</th>
+											<th >Vận chuyển </th>
+											<th>Chi Tiết Giá</th>
+											<th>SĐT Đặt Hàng</th>
+											<th>Nơi Nhận</th>
+											<th>Phương Thức Thanh Toán</th>
+											<th>Lựa Chọn</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="b:${bills4 }">
+											<td th:text="${b.id }"></td>
+											<td th:text="${b.user.name}"></td>
+											<td th:text="${b.user.address}"></td>
+											<td th:text="${b.user.phone}"></td>
+											<td th:text="${b.buyDate }"></td>
+											<td><span th:text="${#numbers.formatDecimal(b.total, 0, 'COMMA', 0, 'POINT')}"></span>đ</td>
+											
+											<td th:switch="${b.trangThai }">
+												<div th:case="'NEW'">
+													<a th:href="@{'/admin/updateMua/bill?billId='+${b.id}}"><button class="btn btn-success">Xác nhận giao hàng</button></a>
+													<a th:href="@{'/admin/updateHuy/bill?billId='+${b.id}}"><button class="btn btn-danger">Hủy Đơn</button></a>
+												</div>
+												<div th:case="'NEWS'">
+													<a th:href="@{'/admin/updateMua/bill?billId='+${b.id}}"><button class="btn btn-success">Đã nhận tiền chuyển giao hàng</button></a>
+													<a th:href="@{'/admin/updateHuy/bill?billId='+${b.id}}"><button class="btn btn-danger">Hủy Đơn</button></a>
+												</div>
+												<div th:case="*">
+													<label th:text="${b.trangThai }"></label>
+												</div>
+
+											</td>
+											<td th:switch="${b.trangThai } eq 'DA XAC NHAN'">
+												<div th:case="${true}">
+													<a th:href="@{'/admin/updateGiao/bill?billId='+${b.id}}"><button class="btn btn-info">Giao Hàng</button></a>
+												</div>
+												<!--  <div th:case="''">
+													<a th:href="@{'/admin/updateGiao/bill?billId='+${b.id}}"><button class="btn btn-info">Giao Hàng</button></a>
+												</div>-->
+												<div th:case="*">
+													<label th:text="${b.giaoHang }"></label>
+												</div>
+
+											</td>
+											<td><span th:text="${#numbers.formatDecimal(b.priceTotal, 0, 'COMMA', 0, 'POINT')}"></span>đ</td>
+											<td th:text="${b.inforBillDTO.phoneNumber}"></td>
+											<td th:text="${b.inforBillDTO.address}"></td>
+											<td th:text="${b.inforBillDTO.method}"></td>
+											<td><a
+												th:href="@{'/admin/billproduct/search?idBill='+${b.id }}"><i
+													class="fa fa-eye" style="font-size: 22px"></i></a><!-- |<a
+												th:href="@{'/admin/delete/bills?idBill='+${b.id }}"><i
+													class="fa fa-times" style="font-size: 22px"></i></a> --></td>
+										</tr>
+									</tbody>
+
+
+
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<div class=col-md-3><h3>Đơn hàng đã bị hủy</h3></div>
+			<br><br><br>
+			<section class="content">
+				<div class="row">
+					<div class="col-xs-12">
+						<!-- Start Table -->
+						<div class="box">
+							<!-- /.box-header -->
+							<div class="box-body">
+								<table id="example1" class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th>Mã Hóa Đơn</th>
+											<th>Tên người mua</th>
+											<th>Địa Chỉ</th>
+											<th>Số Điện Thoại</th>
+											<th>Thời Gian Mua</th>
+											<th>Giá</th>
+											<!-- <th>Khuyến Mại</th> -->
+											<th>Trạng Thái</th>
+											<th >Vận chuyển </th>
+											<th>Chi Tiết Giá</th>
+											<th>SĐT Đặt Hàng</th>
+											<th>Nơi Nhận</th>
+											<th>Phương Thức Thanh Toán</th>
+											<th>Lựa Chọn</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="b:${bills2 }">
+											<td th:text="${b.id }"></td>
+											<td th:text="${b.user.name}"></td>
+											<td th:text="${b.user.address}"></td>
+											<td th:text="${b.user.phone}"></td>
+											<td th:text="${b.buyDate }"></td>
+											<td><span th:text="${#numbers.formatDecimal(b.total, 0, 'COMMA', 0, 'POINT')}"></span>đ</td>
+											<!-- <td th:text="${b.discountPercent}+'%'"></td> -->
+											<td th:switch="${b.trangThai }">
+												<div th:case="'NEW'">
+													<a th:href="@{'/admin/updateMua/bill?billId='+${b.id}}"><button class="btn btn-success">Xác nhận giao hàng</button></a>
+													<a th:href="@{'/admin/updateHuy/bill?billId='+${b.id}}"><button class="btn btn-danger">Hủy Đơn</button></a>
+												</div>
+												<div th:case="'NEWS'">
+													<a th:href="@{'/admin/updateMua/bill?billId='+${b.id}}"><button class="btn btn-success">Đã nhận tiền chuyển giao hàng</button></a>
+													<a th:href="@{'/admin/updateHuy/bill?billId='+${b.id}}"><button class="btn btn-danger">Hủy Đơn</button></a>
+												</div>
+												<div th:case="*">
+													<label th:text="${b.trangThai }"></label>
+												</div>
+
+											</td>
+											<td th:switch="${b.trangThai } eq 'DA XAC NHAN'">
+												<div th:case="${true}">
+													<a th:href="@{'/admin/updateGiao/bill?billId='+${b.id}}"><button class="btn btn-info">Giao Hàng</button></a>
+												</div>
+												<!--  <div th:case="''">
+													<a th:href="@{'/admin/updateGiao/bill?billId='+${b.id}}"><button class="btn btn-info">Giao Hàng</button></a>
+												</div>-->
+												<div th:case="*">
+													<label th:text="${b.giaoHang }"></label>
+												</div>
+
+											</td>
+											<td><span th:text="${#numbers.formatDecimal(b.priceTotal, 0, 'COMMA', 0, 'POINT')}"></span>đ</td>
+											<td th:text="${b.inforBillDTO.phoneNumber}"></td>
+											<td th:text="${b.inforBillDTO.address}"></td>
+											<td th:text="${b.inforBillDTO.method}"></td>
+											<td><a
+												th:href="@{'/admin/billproduct/search?idBill='+${b.id }}"><i
+													class="fa fa-eye" style="font-size: 22px"></i></a><!-- |<a
+												th:href="@{'/admin/delete/bills?idBill='+${b.id }}"><i
+													class="fa fa-times" style="font-size: 22px"></i></a> --></td>
+										</tr>
+									</tbody>
+
+
+
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- <center>
+				<div>
+					<a class="btn btn-warning" th:if="${admin}!=null"
+						th:href="@{'/admin/bill/search?keyword=' + ${keyword} +'&page=' + ${page + 1}}">Xem thêm dữ liệu</a>
+				</div>
+			</center> -->
+		</div>
+	</div>
+	<footer
+		style="border-top: 1px solid #d2d6de; text-align: center; background: #fff; color: #444; height: 60px; line-height: 60px;">
+		<strong>Copyright &copy; 2020 |<a
+			href="http://facebook.com/chungtranhy">C&T</a>.
+		</strong>
+	</footer>
+
+</body>
+</html>

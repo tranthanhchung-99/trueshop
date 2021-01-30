@@ -1,0 +1,179 @@
+/*contact*/
+.contact-map{
+    margin-top: 25px;
+}
+
+.contact-details{
+    margin-top: 20px;
+}
+.light-font{
+    color: black;
+    font: 20px Muli;
+}
+.clr-txt.fsz-12.pt-15{
+    color: orange;
+    font: 12px Muli;
+
+    padding: 15px 0px 0px;
+}
+.diachi{
+    list-style: none;
+}
+.sub-title-1.text-center{
+    color: #9F9F9F;
+    font: 10px Muli;
+    margin: 10px;
+}
+.form-control{
+    background: white;
+    padding: 10px;
+}
+.form-group.col-sm-12{
+    color: #525252;
+    font: 14px Muli;
+    margin: 0px 0px 20px;
+    padding: 0px 15px;
+}
+.form-group.col-sm-12.text-center.pt-15{
+    color: #525252;
+    font: 14px Muli;
+    margin: 0px 0px 20px;
+    padding: 15px 15px 0px;
+}
+.theme-btn-2{
+    color: white;
+    font: 13px Muli;
+    background: orange;
+    padding: 14px 30px;
+    margin-top: 30px;
+}
+.contact-form.pt-50{
+    color: #525252;
+    font: 14px Muli;
+    padding: 50px 0px 0px;
+}
+/*}quang cáo*/
+#quang-cao{
+    height: 300px;
+    background: url(../Image/bg_top_ft.jpg) no-repeat ;
+
+}
+.noi-dung-quang-cao {
+    padding-top: 50px;
+}
+.noi-dung-quang-cao-2 {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+}
+.noi-dung-quang-cao-3 {
+    position: relative;
+    width: 600px;
+    height: 200px;
+    background: #000000;
+}
+.quang-cao-den {
+    position: absolute;
+    background: #ff854c;
+    top: -10px;
+    font-size: 21px;
+    text-transform: uppercase;
+    color: #ffffff;
+    padding: 70px 50px 20px;
+}
+strong.chu30 {
+    font-size: 30px;
+}
+.lay-ma{
+    text-align: right;
+    padding: 128px 50px 50px 20px;
+}
+.lay-ma a{
+    display: inline;
+    padding: 10px 15px;
+    background: #ff854c;
+    text-transform: uppercase;
+    color: #ffffff;
+}
+/*tinnhan*/
+.text-banner {
+    margin-top: 30px;
+    text-align: center;
+}
+button.navbar-btn.btn-tinnhan {
+    border: 2px solid #ff854c;
+    border-radius: 2em;
+    font-weight: 600;
+    text-decoration: none;
+    color: white;
+    padding: 11px 30px;
+    background: #ff854c;
+}
+.navbar-btn.btn-tinnhan:hover {
+    background: pink;
+    border: 2px solid pink;
+}
+
+ .product-tabs-wrapper {
+    margin-right: -15px;
+    margin-left: -15px;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    background-color: #F9F9F9;
+}
+.tabs li.active a {
+    color: rgba(0,0,0,.9);
+   
+}
+.tabs li a {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 600;
+    color: rgba(0,0,0,.5);
+    padding: 3px 0;
+    
+}
+.entry-content p {
+    line-height: 1.7;
+    letter-spacing: .3px;
+    font-size: 16px;
+}
+.hinh{
+	text-align: center;
+}
+.tabs li {
+    display: inline-block;
+    margin-right: 30px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #E4E4E4;
+}
+.tabs li.active {
+    border-color: #545454;
+}
+ .tabs {
+    margin-bottom: 25px;
+    text-align: center;
+}
+.sale_shop ul li:before {
+    content: "\f058";
+    margin-right: 8px;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 18px;
+    color: #38b53e;
+}
+.sale_shop {
+    border: 1px dashed #d33;
+    padding: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+    border-radius: 5px;
+}
+.sale_shop strong {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+strong {
+    font-weight: 700;
+}

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html layout:decorator="client/template">
+<head>
+<meta charset="UTF-8">
+<title>Category</title>
+</head>
+<body layout:fragment="content" th:remove="tag">
+
+
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<!--  <div>
+		<form th:action="@{/category/search}" method="get">
+			<input type="submit" value="search" class="btn btn-primary" /> <input
+				type="text" name="keyword" placeholder="nhap keyword"
+				th:value="${keyword}" />
+		</form>
+	</div>-->
+	<H1 class="text-center">DANH MUC</h1>
+	<div>
+		<table border="1">
+			<tr>
+				<td>Id</td>
+				<td>Name</td>
+				<td>Option</td>
+			</tr>
+			<tr th:each="category : ${categoryList}">
+				<td th:text="${category.id}"></td>
+				<td th:text="${category.name}"></td>
+				<td><a th:href="@{'/productsByCategory?id='+${category.id}}">detail</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<a class="btn btn-primary"
+			th:href="@{'/category/search?keyword=' + ${keyword} +'&page=' + ${page + 1}}">LOAD
+			MORE</a>
+	</div>
+	<form>
+		<div class="flex-w flex-sb-m p-b-52">
+			<div class="flex-w flex-l-m filter-tope-group m-tb-10">
+				<label> category : <select type="text" name="categoryName"
+					th:value="${categoryName}">
+						<option th:each="id: ${categoryList}" th:value="${id.name}"
+							th:text="${id.name}"></option>
+						<option selected="selected"></option>
+				</select>
+				</label> <label> Thuong Hieu : <select type="text"
+					name="thuongHieuName" th:value="${thuongHieuName}">
+						<option th:each="id: ${thuongHieuList}" th:value="${id.name}"
+							th:text="${id.name}"></option>
+						<option selected="selected"></option>
+				</select>
+				</label> <label> Gioi Tinh : <select type="text" name="gioiTinhName"
+					th:value="${gioiTinhName}">
+						<option th:each="id: ${gioiTinhList}" th:value="${id.name}"
+							th:text="${id.name}"></option>
+						<option selected="selected"></option>
+				</select>
+				</label> <label>Kich Thuoc : <select type="text"
+					name="kichThuocName" th:value="${kichThuocName}">
+						<option th:each="id: ${kichThuocList}" th:value="${id.name}"
+							th:text="${id.name}"></option>
+						<option selected="selected"></option>
+				</select>
+
+				</label> <input class="fricesearch" type="text" name="priceStart"
+					th:value="${priceStart}" placeholder="giá từ"> <input
+					class="fricesearch" type="text" name="priceEnd"
+					th:value="${priceEnd}" placeholder="giá đến">
+
+			</div>
+			<button type="submit">
+				<div
+					class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
+					<i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
+					<i
+						class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+					Search
+				</div>
+			</button>
+
+		</div>
+
+	</form>
+</body>
+</html>
