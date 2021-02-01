@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,6 +28,7 @@ import com.linkin.model.ProductDTO;
 import com.linkin.model.ReviewDTO;
 import com.linkin.model.ThuongHieuDTO;
 import com.linkin.model.UserDTO;
+import com.linkin.model.UserPrincipal;
 import com.linkin.service.CategoryService;
 import com.linkin.service.CommentService;
 import com.linkin.service.KichThuocService;
@@ -210,7 +212,7 @@ public class ClientController {
 		return "client/product";
 	}
 
-	@GetMapping(value = "/member/add-to-cart")
+	@GetMapping(value = "/add-to-cart")
 	public String AddToCart(@RequestParam(name = "pid") Long pId, HttpSession session, HttpServletRequest request)
 			throws IOException {
 		ProductDTO product = productService.get(pId);// lay thong tin sp tu trang products , product
@@ -250,7 +252,7 @@ public class ClientController {
 	}
 
 	// tuong tu add-to-cart thi sub-to-cart la giam sl sp trong gio hang
-	@GetMapping(value = "/member/sub-to-cart")
+	@GetMapping(value = "/sub-to-cart")
 	public String subToCart(@RequestParam(name = "pid") Long pId, HttpSession session, HttpServletRequest request)
 			throws IOException {
 		ProductDTO product = productService.get(pId);
@@ -303,6 +305,10 @@ public class ClientController {
 	// goi ra form gio hang
 	@GetMapping(value = "/cart")
 	public String cart(HttpServletRequest request, HttpSession session) {
+//		Object principal = (Object) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		if(principal!=null) {
+//			System.out.println(">>>>>>>>>>>>>>>>>>>>k có người đăng nhập");
+//		}
 		List<CategoryDTO> list = categoryService.searchAll("");
 		request.setAttribute("categoryList", list);
 		// lay tat ca sp co trong gio hang

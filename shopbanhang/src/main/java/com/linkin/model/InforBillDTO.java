@@ -6,6 +6,13 @@ public class InforBillDTO {
 	private String phoneNumber;
 	private String method;
 	private String note;
+	private String email;
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	private BillDTO billDTO;
 	public BillDTO getBillDTO() {
 		return billDTO;

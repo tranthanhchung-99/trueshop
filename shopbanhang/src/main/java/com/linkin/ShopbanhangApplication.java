@@ -51,5 +51,7 @@ public class ShopbanhangApplication extends WebSecurityConfigurerAdapter {
 		SpringSecurityDialect dialect = new SpringSecurityDialect();
 		return dialect;
 	}
+	
+	
 
 }

@@ -90,7 +90,7 @@
 					</div>
 					<div class="buttoncart" th:switch="${product.soLuong }>0">
 						<a class="cartbuton" th:case="${true}"
-							th:href="@{'/member/add-to-cart?pid='+${product.id}}"
+							th:href="@{'/add-to-cart?pid='+${product.id}}"
 							role="button"> THÊM VÀO GIỎ HÀNG </a> <a class="cartbuton"
 							role="button" th:case="*">HẾT HÀNG</a> <a class="cartbuton"
 							title="0965135408" href="https://zalo.me/0942359987">Liên hệ

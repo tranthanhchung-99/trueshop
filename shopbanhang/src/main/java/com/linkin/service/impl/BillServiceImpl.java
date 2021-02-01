@@ -27,7 +27,9 @@ public class BillServiceImpl implements BillService {
 	public void insert(BillDTO billDTO) {
 		Bill bill = new Bill();
 		bill.setBuyDate(new Date());
-		bill.setBuyer(new User(billDTO.getUser().getId()));
+		if(billDTO.getUser()!=null) {
+			bill.setBuyer(new User(billDTO.getUser().getId()));
+		}
 		bill.setStatus(billDTO.getStatus());
 		bill.setTrangthai(billDTO.getTrangThai());
 		bill.setGiaohang(billDTO.getGiaoHang());

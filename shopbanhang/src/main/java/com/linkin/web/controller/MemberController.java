@@ -242,7 +242,120 @@ public class MemberController {
 		}
 		return "redirect:/products";
 	}
+	@GetMapping(value = "/bill/add")
+	public String addOrderNoAu(HttpSession session, @RequestParam(value = "page", required = false) Integer page,
+			Model model, HttpServletRequest request) throws IOException {
+		List<CategoryDTO> categoryList = (List<CategoryDTO>) session.getAttribute("cate");
+		request.setAttribute("categoryList", categoryList);
+		// lay member dang nhap hien tai
+//		UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//
+//		UserDTO user = new UserDTO();
+//		user.setId(principal.getId());
 
+		// lay sp trong gio hang
+		Object object = session.getAttribute("cart");
+		InforBillDTO inforBillDTO1 = (InforBillDTO) session.getAttribute("inforBill");
+
+		if (object != null) {
+			Map<String, BillProductDTO> map = (Map<String, BillProductDTO>) object;
+			// lay cac tt cua sp , user luu xuong db
+			BillDTO bill = new BillDTO();
+			//bill.setUser(user);
+			bill.setStatus("NEW");
+			bill.setTrangThai("NEW");
+			bill.setGiaoHang("NEW");
+			billService.insert(bill);
+			
+			InforBillDTO inforBillDTO = new InforBillDTO();
+			inforBillDTO.setBillDTO(bill);
+			inforBillDTO.setAddress(inforBillDTO1.getAddress());
+			inforBillDTO.setPhoneNumber(inforBillDTO1.getPhoneNumber());
+			inforBillDTO.setMethod(inforBillDTO1.getMethod());
+			inforBillDTO.setNote(inforBillDTO1.getNote());
+			inforBillService.insert(inforBillDTO);
+			// tinh tong tien va tong tien thu thuc te neu khach dc khuyen mai
+			long totalPrice = 0L;
+			long finalTotalPrice = 0L;
+			float sale = 0.05f;
+			for (Entry<String, BillProductDTO> entry : map.entrySet()) {
+				BillProductDTO billProduct = entry.getValue();
+				billProduct.setBill(bill);
+
+				billProductService.insert(billProduct);
+
+				totalPrice = totalPrice + (billProduct.getQuantity() * billProduct.getUnitPrice());
+				finalTotalPrice = totalPrice;
+				bill.setTotal(totalPrice);
+				/// discount
+			//	page = page == null ? 1 : page;
+				//List<BillDTO> list = billService.searchByBuyerId(principal.getId(), 0, 1000 * 10); // search trong bang
+																									// bill
+				// update so luong sp sau khi mua hang thanh cong.
+				ProductDTO productDTO = productService.get(entry.getValue().getProduct().getId());
+				productDTO.setSoLuong(productDTO.getSoLuong() - billProduct.getQuantity());
+				productService.update(productDTO);
+
+//				if (list.size() == 1) { // lan dau mua
+//					finalTotalPrice = (totalPrice - ((totalPrice * 5) / 100));
+//					bill.setPriceTotal(finalTotalPrice);
+//					bill.setDiscountPercent(5);
+//					
+//				} else {
+//
+//					bill.setPriceTotal(totalPrice);
+//					bill.setDiscountPercent(0);
+//					bill.setStatus("OLD");
+//				}
+
+				System.out.println("...................................................................."
+						+ inforBillDTO1.getEmail());
+				if (inforBillDTO1.getMethod().equals("Thanh toán bằng thẻ")) {
+					bill.setTrangThai("NEWS");
+				}
+
+				// udpate lai gia
+			}
+			billService.update(bill);
+			// goi sms service
+//			SMSDTO smsdto = new SMSDTO();
+//			smsdto.setCustomerPhone(String.valueOf((principal.getPhone())));
+//			smsdto.setContent("Bạn vừa đặt hàng thành công đơn hàng trên ShopTTH!!!");
+//
+//			smsService.sendSMS(smsdto);
+
+			String content = "";
+
+			for (BillProductDTO i : map.values()) {
+				System.out.println(
+						"sản phẩm: " + i.getProduct().getName() + " Số tiền: " + i.getUnitPrice() * i.getQuantity());
+				content += "<p>Sản phẩm: " + i.getProduct().getName() + "<p>Số tiền: "
+						+ i.getUnitPrice() * i.getQuantity() + " (đ); \n";
+			}
+			//String mail=inforBillDTO1.getEmail();
+			
+			// gửi email sau khi thanh toán
+			emailService.sendSimpleMessage(inforBillDTO1.getEmail(), "Chi tiết đơn hàng",
+
+					"<html>" + "<body>" + "<h3>Bạn vừa đặt hàng thành công đơn hàng trên shopC&T!!! \n</h3>" + content
+							+ "<p>\n Tổng tiền: " + finalTotalPrice + " (đ)"
+							+ "<p>\n Chúng tôi sẽ liên hệ lại sớm nhất để xác nhận đơn hàng của bạn!!!."
+							+ "<p>\n Nếu có bất kì thắc mắc hay sự cố hãy liên hệ tới hotline: 0942359987 !!!"
+							+ "</body>" + "</html>");
+
+			// xóa cart khi đã thanh toán
+			session.removeAttribute("cart");
+
+			return "redirect:/noau/bills";
+		}
+		return "redirect:/products";
+	}
+	
+	@GetMapping(value = "/noau/bills")
+	public String billdGetNoAu(HttpServletRequest request, HttpSession session) {
+		return "member/noaubill";
+	}
+	
 	// danh sach tat ca hoa don cua 1 khach hang
 	@GetMapping(value = "/member/bills")
 	public String bills(HttpServletRequest request, @RequestParam(value = "keyword", required = false) Long keyword,
@@ -370,7 +483,33 @@ public class MemberController {
 		request.setAttribute("tongtien", tongtien);
 		return "member/xacnhan";
 	}
+	
+	@GetMapping(value = "/thanhtoan")
+	public String thanhToanGetNoAu(HttpServletRequest request, HttpSession session) {
+		List<CategoryDTO> categoryList = (List<CategoryDTO>) session.getAttribute("cate");
+		request.setAttribute("categoryList", categoryList);
+		return "member/thanhtoan";
+	}
 
+	@PostMapping(value = "/thanhtoan")
+	public String thanhToanPostNoAu(@ModelAttribute InforBillDTO inforBillDTO, HttpSession httpSession,
+			HttpServletRequest req, HttpSession session, HttpServletRequest request) {
+		List<CategoryDTO> categoryList = (List<CategoryDTO>) session.getAttribute("cate");
+		request.setAttribute("categoryList", categoryList);
+		httpSession = req.getSession();
+		InforBillDTO inforBillDTO2 = (InforBillDTO) httpSession.getAttribute("inforBill");// lay tt khach nhap tu
+																							// session
+		httpSession.setAttribute("inforBill", inforBillDTO);// dua ra giao dien sau khi anh thanh toan
+		Map<Long, BillProductDTO> map = (Map<Long, BillProductDTO>) session.getAttribute("cart");
+		Long tongtien = 0L;
+		// tinh tong tien va dua ra giao dien
+		for (Map.Entry<Long, BillProductDTO> entry : map.entrySet()) {
+			Long tong = entry.getValue().getUnitPrice() * entry.getValue().getQuantity();
+			tongtien = tongtien + tong;
+		}
+		request.setAttribute("tongtien", tongtien);
+		return "member/xacnhan";
+	}
 	// an da nhan hnag thi giao hang se tu DANG VAN CHUYEN doi sang DA NHAN HANG va
 	// luu xuong db
 	@GetMapping(value = "/member/updateGiao/bill")

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<html layout:decorator="client/template"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<title>Đơn hàng</title>
+</head>
+<body layout:fragment="content" th:remove="tag">
+	<br>
+	<br>
+	<br>
+	<div class="container">
+		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+			<a th:href="@{/products}" class=" tet stext-109 cl8 hov-cl1 trans-04">
+				<p th:text="#{menu.home}">
+			</a> <a class="stext-109 cl8 hov-cl1 trans-04"> <i
+				class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i> <span
+				class="tet" th:text="#{menu.bill}"></span>
+
+			</a>
+
+		</div>
+	</div>
+	<!--  <form th:action="@{/member/bills}"
+				method="get">
+				<br> <label class="col-md-2">Trạng thái đơn hàng :</label> 
+				<select name="trangthai">	
+					<option value="">tùy chọn</option>
+					<option value="NEW">đơn hàng mới chờ xác nhận</option>
+					<option value="DA XAC NHAN">đã xác nhận</option>
+					<option value="DA NHAN HANG">đã nhận hàng</option>
+					<option value="DANG VAN CHUYEN">đang vận chuyển</option>
+					<option value="HUY">đơn bị hủy</option>
+				</select>
+				
+				<input type="submit"
+					class="btn btn-info btn-sm" value="Tìm Kiếm" />
+			</form>-->
+			<!--  <a th:href="@{/member/bills?trangthai=NEW}">Đơn hàng chờ xác nhận </a><br>
+			<a th:href="@{/member/bills?trangthai=DA+XAC+NHAN}">Đã xác nhận</a><br>
+			<a th:href="@{/member/bills?trangthai=DA+NHAN+HANG}">Đã nhận hàng</a><br>
+			<a th:href="@{/member/bills?trangthai=DANG+VAN+CHUYEN}">Đang vận chuyển</a><br>
+			<a th:href="@{/member/bills?trangthai=HUY}">đơn bị hủy</a>-->
+	<p>Đặt hàng thành công!!</p>
+	<script th:src="@{/js/main.js}" type="text/javascript"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/vendor/jquery/jquery-3.2.1.min.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/vendor/animsition/js/animsition.min.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/vendor/bootstrap/js/popper.js}"></script>
+	<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/vendor/select2/select2.min.js}"></script>
+	<script>
+		$(".js-select2").each(function() {
+			$(this).select2({
+				minimumResultsForSearch : 20,
+				dropdownParent : $(this).next('.dropDownSelect2')
+			});
+		})
+	</script>
+	<!--===============================================================================================-->
+	<script th:src="@{/vendor/daterangepicker/moment.min.js}"></script>
+	<script th:src="@{/vendor/daterangepicker/daterangepicker.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/vendor/slick/slick.min.js}"></script>
+	<script th:src="@{/js/slick-custom.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/vendor/parallax100/parallax100.js}"></script>
+	<script>
+		$('.parallax100').parallax100();
+	</script>
+	<!--===============================================================================================-->
+	<script src="vendor/MagnificPopup/jquery.magnific-popup.min.js}"></script>
+	<script>
+		$('.gallery-lb').each(function() { // the containers for all your galleries
+			$(this).magnificPopup({
+				delegate : 'a', // the selector for gallery item
+				type : 'image',
+				gallery : {
+					enabled : true
+				},
+				mainClass : 'mfp-fade'
+			});
+		});
+	</script>
+	<!--===============================================================================================-->
+	<script th:src="@{/vendor/isotope/isotope.pkgd.min.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/vendor/sweetalert/sweetalert.min.js}"></script>
+	<script>
+		$('.js-addwish-b2').on('click', function(e) {
+			e.preventDefault();
+		});
+
+		$('.js-addwish-b2').each(
+				function() {
+					var nameProduct = $(this).parent().parent().find(
+							'.js-name-b2').html();
+					$(this).on('click', function() {
+						swal(nameProduct, "is added to wishlist !", "success");
+
+						$(this).addClass('js-addedwish-b2');
+						$(this).off('click');
+					});
+				});
+
+		$('.js-addwish-detail').each(
+				function() {
+					var nameProduct = $(this).parent().parent().parent().find(
+							'.js-name-detail').html();
+
+					$(this).on('click', function() {
+						swal(nameProduct, "is added to wishlist !", "success");
+
+						$(this).addClass('js-addedwish-detail');
+						$(this).off('click');
+					});
+				});
+
+		/*---------------------------------------------*/
+
+		$('.js-addcart-detail').each(
+				function() {
+					var nameProduct = $(this).parent().parent().parent()
+							.parent().find('.js-name-detail').html();
+					$(this).on('click', function() {
+						swal(nameProduct, "is added to cart !", "success");
+					});
+				});
+	</script>
+	<!--===============================================================================================-->
+	<script th:src="@{/vendor/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+	<script>
+		$('.js-pscroll').each(function() {
+			$(this).css('position', 'relative');
+			$(this).css('overflow', 'hidden');
+			var ps = new PerfectScrollbar(this, {
+				wheelSpeed : 1,
+				scrollingThreshold : 1000,
+				wheelPropagation : false,
+			});
+
+			$(window).on('resize', function() {
+				ps.update();
+			})
+		});
+	</script>
+	<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+</body>
+</html>
