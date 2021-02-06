@@ -285,8 +285,12 @@ public class MemberController {
 				// update so luong sp sau khi mua hang thanh cong.
 				ProductDTO productDTO = productService.get(entry.getValue().getProduct().getId());
 				productDTO.setSoLuong(productDTO.getSoLuong() - billProduct.getQuantity());
-				productService.update(productDTO);
+				
 
+				productService.update(productDTO);
+				bill.setPriceTotal(totalPrice);
+				bill.setDiscountPercent(0);
+				bill.setStatus("OLD");
 
 				System.out.println("...................................................................."
 						+ inforBillDTO1.getEmail());

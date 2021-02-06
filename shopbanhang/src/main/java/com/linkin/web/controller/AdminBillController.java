@@ -146,5 +146,14 @@ public class AdminBillController {
 		billService.update(billDTO);
 		return "redirect:/admin/bill/search?keyword=DA+XAC+NHAN";
 	}
+	@GetMapping(value = "/admin/updateNhan/bill")
+	public String updateGiaoHangBillAdmin(@RequestParam(name = "billId") Long billId, HttpSession httpSession,
+			HttpServletRequest req) {
+		httpSession = req.getSession();
+		BillDTO billDTO = billService.get(billId);
+		billDTO.setGiaoHang("DA NHAN HANG");
+		billService.update(billDTO);
+		return "redirect:/admin/bill/search";
+	}
 
 }
