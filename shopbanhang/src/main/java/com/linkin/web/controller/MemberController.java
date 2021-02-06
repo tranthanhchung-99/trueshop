@@ -189,7 +189,7 @@ public class MemberController {
 				productDTO.setSoLuong(productDTO.getSoLuong() - billProduct.getQuantity());
 				productService.update(productDTO);
 
-				if (list.size() == 1) { // lan dau mua
+				if (list.size() == 1) { // lan dau mua giam 5% tong don hang
 					finalTotalPrice = (totalPrice - ((totalPrice * 5) / 100));
 					bill.setPriceTotal(finalTotalPrice);
 					bill.setDiscountPercent(5);
@@ -210,12 +210,6 @@ public class MemberController {
 				// udpate lai gia
 			}
 			billService.update(bill);
-			// goi sms service
-//			SMSDTO smsdto = new SMSDTO();
-//			smsdto.setCustomerPhone(String.valueOf((principal.getPhone())));
-//			smsdto.setContent("Bạn vừa đặt hàng thành công đơn hàng trên ShopTTH!!!");
-//
-//			smsService.sendSMS(smsdto);
 
 			String content = "";
 
@@ -247,11 +241,6 @@ public class MemberController {
 			Model model, HttpServletRequest request) throws IOException {
 		List<CategoryDTO> categoryList = (List<CategoryDTO>) session.getAttribute("cate");
 		request.setAttribute("categoryList", categoryList);
-		// lay member dang nhap hien tai
-//		UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//
-//		UserDTO user = new UserDTO();
-//		user.setId(principal.getId());
 
 		// lay sp trong gio hang
 		Object object = session.getAttribute("cart");
@@ -261,7 +250,9 @@ public class MemberController {
 			Map<String, BillProductDTO> map = (Map<String, BillProductDTO>) object;
 			// lay cac tt cua sp , user luu xuong db
 			BillDTO bill = new BillDTO();
-			//bill.setUser(user);
+			UserDTO userDTO= new UserDTO();
+			userDTO.setId(6L);
+			bill.setUser(userDTO);
 			bill.setStatus("NEW");
 			bill.setTrangThai("NEW");
 			bill.setGiaoHang("NEW");
@@ -296,17 +287,6 @@ public class MemberController {
 				productDTO.setSoLuong(productDTO.getSoLuong() - billProduct.getQuantity());
 				productService.update(productDTO);
 
-//				if (list.size() == 1) { // lan dau mua
-//					finalTotalPrice = (totalPrice - ((totalPrice * 5) / 100));
-//					bill.setPriceTotal(finalTotalPrice);
-//					bill.setDiscountPercent(5);
-//					
-//				} else {
-//
-//					bill.setPriceTotal(totalPrice);
-//					bill.setDiscountPercent(0);
-//					bill.setStatus("OLD");
-//				}
 
 				System.out.println("...................................................................."
 						+ inforBillDTO1.getEmail());
@@ -317,13 +297,6 @@ public class MemberController {
 				// udpate lai gia
 			}
 			billService.update(bill);
-			// goi sms service
-//			SMSDTO smsdto = new SMSDTO();
-//			smsdto.setCustomerPhone(String.valueOf((principal.getPhone())));
-//			smsdto.setContent("Bạn vừa đặt hàng thành công đơn hàng trên ShopTTH!!!");
-//
-//			smsService.sendSMS(smsdto);
-
 			String content = "";
 
 			for (BillProductDTO i : map.values()) {
@@ -332,7 +305,6 @@ public class MemberController {
 				content += "<p>Sản phẩm: " + i.getProduct().getName() + "<p>Số tiền: "
 						+ i.getUnitPrice() * i.getQuantity() + " (đ); \n";
 			}
-			//String mail=inforBillDTO1.getEmail();
 			
 			// gửi email sau khi thanh toán
 			emailService.sendSimpleMessage(inforBillDTO1.getEmail(), "Chi tiết đơn hàng",
@@ -537,8 +509,15 @@ public class MemberController {
 
 	@PostMapping(value = "/member/change-password")
 	public String AdminUpdateUserPost(@ModelAttribute(name = "user") UserDTO user) {
+
+		UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDTO userDTO = userService.get(principal.getId());
+		System.out.println("nnnnnnn"+principal.getId());
+		System.out.println("nnnnnnn"+user.getPassword());
+
+		user.setId(principal.getId());
 		userService.setupUserPassword(user);
-		UserDTO userDTO = userService.get(user.getId());
+
 		emailService.sendSimpleMessage(userDTO.getEmail(), "Thay đổi mật khẩu",
 
 				"<html>" + "<body>" + "<h3>Bạn vừa đổi mật khẩu thành công !!! \n</h3>"

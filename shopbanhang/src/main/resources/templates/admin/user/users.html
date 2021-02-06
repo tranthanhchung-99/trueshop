@@ -1,145 +1,146 @@
 <!DOCTYPE html>
 <html layout:decorator="admin/template">
 <head>
-<meta charset="UTF-8">
-<title>Quản lí người dùng</title>
-<!-- Bootstrap 3.3.6 -->
-<link rel="stylesheet" th:href="@{/admin/admin/css/bootstrap.min.css}">
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	th:href="@{/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css}">
-<!-- Ionicons -->
-<link rel="stylesheet"
-	th:href="@{/https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css}">
-<!-- DataTables -->
-<link rel="stylesheet"
-	th:href="@{/admin/admin/datatables/dataTables.bootstrap.css}">
-<!-- Theme style -->
-<link rel="stylesheet" th:href="@{/admin/admin/css/AdminLTE.min.css}">
-<!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
-<link rel="stylesheet"
-	th:href="@{/admin/admin/css/skins/_all-skins.min.css}">
+    <meta charset="UTF-8">
+    <title>Quản lí người dùng</title>
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" th:href="@{/admin/admin/css/bootstrap.min.css}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          th:href="@{/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css}">
+    <!-- Ionicons -->
+    <link rel="stylesheet"
+          th:href="@{/https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css}">
+    <!-- DataTables -->
+    <link rel="stylesheet"
+          th:href="@{/admin/admin/datatables/dataTables.bootstrap.css}">
+    <!-- Theme style -->
+    <link rel="stylesheet" th:href="@{/admin/admin/css/AdminLTE.min.css}">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+           folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet"
+          th:href="@{/admin/admin/css/skins/_all-skins.min.css}">
 
-<!-- jQuery 2.2.0 -->
-<script th:src="@{/admin/admin/jQuery/jQuery-2.2.0.min.js}"></script>
-<!-- Bootstrap 3.3.6 -->
-<script th:src="@{/admin/admin/js/bootstrap.min.js}"></script>
-<!-- DataTables -->
-<script th:src="@{/admin/admin/datatables/jquery.dataTables.min.js}"></script>
-<script th:src="@{/admin/admin/datatables/dataTables.bootstrap.min.js}"></script>
-<!-- SlimScroll -->
-<script th:src="@{/admin/admin/slimScroll/jquery.slimscroll.min.js}"></script>
-<!-- FastClick -->
-<script th:src="@{/admin/admin/fastclick/fastclick.js}"></script>
-<!-- AdminLTE App -->
-<script th:src="@{/admin/admin/js/app.min.js}"></script>
-<!-- AdminLTE for demo purposes -->
-<script th:src="@{/admin/admin/js/demo.js}"></script>
+    <!-- jQuery 2.2.0 -->
+    <script th:src="@{/admin/admin/jQuery/jQuery-2.2.0.min.js}"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script th:src="@{/admin/admin/js/bootstrap.min.js}"></script>
+    <!-- DataTables -->
+    <script th:src="@{/admin/admin/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/admin/admin/datatables/dataTables.bootstrap.min.js}"></script>
+    <!-- SlimScroll -->
+    <script th:src="@{/admin/admin/slimScroll/jquery.slimscroll.min.js}"></script>
+    <!-- FastClick -->
+    <script th:src="@{/admin/admin/fastclick/fastclick.js}"></script>
+    <!-- AdminLTE App -->
+    <script th:src="@{/admin/admin/js/app.min.js}"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script th:src="@{/admin/admin/js/demo.js}"></script>
 </head>
 <body layout:fragment="content" th:remove="tag"
-	class="hold-transition skin-blue sidebar-mini">
-	<div class="wrapper">
-		<div class="content-wrapper">
-			<section class="content-header">
-				<h1>Danh sách người dùng</h1>
-				<br> <a th:href="@{/admin/user/add}"><input type="submit"
-					class="btn btn-success" value="Thêm Người dùng" /></a>
+      class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>Danh sách người dùng</h1>
+            <br> <a th:href="@{/admin/user/add}"><input type="submit"
+                                                        class="btn btn-success" value="Thêm Người dùng"/></a>
 
-				<ol class="breadcrumb">
-					<li><a href="#"><i class="fa fa-dashboard"></i> Quản trị</a></li> >
-					<li><a href="#">Quản lý Người Dùng</a></li>
-				</ol>
-			</section>
-			<br>
-			<div>
-				<form th:action="@{/admin/user/search}" method="get">
-					<div class="form-group">
-						<label class="col-md-2 control-label">Tìm Tên Người Dùng :
-						</label><input type="text" name="keyword" th:value="${keyword}"
-							placeholder="Nhập Tên Người Dùng" /> <input type="submit"
-							class="btn btn-info btn-sm" value="Tìm Kiếm" />
-					</div>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Quản trị</a></li>
+                >
+                <li><a href="#">Quản lý Người Dùng</a></li>
+            </ol>
+        </section>
+        <br>
+        <div>
+            <form th:action="@{/admin/user/search}" method="get">
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Tìm Tên Người Dùng :
+                    </label><input type="text" name="keyword" th:value="${keyword}"
+                                   placeholder="Nhập Tên Người Dùng"/> <input type="submit"
+                                                                              class="btn btn-info btn-sm"
+                                                                              value="Tìm Kiếm"/>
+                </div>
 
-				</form>
+            </form>
 
-			</div>
-			<section class="content">
-				<div class="row">
-					<div class="col-xs-12">
-						<!-- Start Table -->
-						<div class="box">
-							<!-- /.box-header -->
-							<div class="box-body">
-								<table id="example1" class="table table-bordered table-striped">
-									<thead>
-										<tr>
-											<th width="111px">Mã người dùng</th>
-											<th>Tên</th>
-											<th>Tuổi</th>
-											<th>Email</th>
-											<th>Số điện thoại</th>
-											<th>Quyền</th>
-											<th>Tài khoản</th>
-											<!-- <th>Enable</th> -->
-											<th>Giới Tính</th>
-											<th>Địa Chỉ</th>
-											<th width="115px">Lựa Chọn</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr th:each="user:${userList}">
-											<td th:text="${user.id}"></td>
-											<td th:text="${user.name}"></td>
-											<td th:text="${user.age}"></td>
-											<td th:text="${user.email}"></td>
-											<td th:text="${user.phone}"></td>
-											<td th:text="${user.role}"></td>
-											<td th:text="${user.username}"></td>
-											<!-- <td th:text="${user.enabled}"></td> -->
-											<td th:text="${user.gender}"></td>
-											<td th:text="${user.address}"></td>
-											<td><a th:if="${user.role} eq 'ROLE_ADMIN'"
-												th:href="@{'/admin/user/update?id='+${user.id}}"><i
-													class="fa fa-edit" style="font-size: 22px"></i> |</a> <a
-												th:if="${user.role} != 'ROLE_ADMIN'"
-												th:href="@{'/admin/user/delete?id='+${user.id}}"><i
-													class="fa fa-times" style="font-size: 22px"></i> </a> <a
-												th:if="${user.role} eq 'ROLE_ADMIN'"
-												th:href="@{'/admin/user/change-password?id='+${user.id}}"><i
-													class="fa fa-key" style="font-size: 22px"></i></a></td>
-										</tr>
-									</tbody>
+        </div>
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- Start Table -->
+                    <div class="box">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th width="111px">Mã người dùng</th>
+                                    <th>Tên</th>
+                                    <th>Tuổi</th>
+                                    <th>Email</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Quyền</th>
+                                    <th>Tài khoản</th>
+                                    <!-- <th>Enable</th> -->
+                                    <th>Giới Tính</th>
+                                    <th>Địa Chỉ</th>
+                                    <th width="115px">Lựa Chọn</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="user:${userList}">
+                                    <td th:text="${user.id}"></td>
+                                    <td th:text="${user.name}"></td>
+                                    <td th:text="${user.age}"></td>
+                                    <td th:text="${user.email}"></td>
+                                    <td th:text="${user.phone}"></td>
+                                    <td th:text="${user.role}"></td>
+                                    <td th:text="${user.username}"></td>
+                                    <!-- <td th:text="${user.enabled}"></td> -->
+                                    <td th:text="${user.gender}"></td>
+                                    <td th:text="${user.address}"></td>
+                                    <td><a th:if="${user.role} eq 'ROLE_ADMIN'"
+                                           th:href="@{'/admin/user/update?id='+${user.id}}"><i
+                                            class="fa fa-edit" style="font-size: 22px"></i> |</a> <a
+                                            th:if="${user.role} != 'ROLE_ADMIN'"
+                                            th:href="@{'/admin/user/delete?id='+${user.id}}"><i
+                                            class="fa fa-times" style="font-size: 22px"></i> </a> <a
+                                            th:if="${user.role} eq 'ROLE_ADMIN'"
+                                            th:href="@{'/admin/user/change-password?id='+${user.id}}"><i
+                                            class="fa fa-key" style="font-size: 22px"></i></a></td>
+                                </tr>
+                                </tbody>
 
-								</table>
-							</div>
-							<!-- /.box-body -->
-						</div>
-						<!-- End Table -->
-						<!-- /.box -->
-					</div>
-					<!-- /.col -->
-				</div>
-				<!-- /.row -->
-			</section>
-			<div>
-				<center>
-					<a class="btn btn-warning"
-						th:href="@{'/admin/user/search?keyword=' + ${keyword} +'&page=' + ${page + 1}}">Xem thêm
-					</a>
-			</div>
-			</center>
-			</br>
-			<!-- Control Sidebar -->
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- End Table -->
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <div>
+            <center>
+                <a class="btn btn-warning"
+                   th:href="@{'/admin/user/search?keyword=' + ${keyword} +'&page=' + ${page + 1}}">Xem thêm
+                </a>
+        </div>
+        </center>
+        </br>
+        <!-- Control Sidebar -->
 
 
-		</div>
-	</div>
-	<footer
-		style="border-top: 1px solid #d2d6de; text-align: center; background: #fff; color: #444; height: 60px; line-height: 60px;">
-		<strong>Copyright &copy; 2020 | <a
-			href="http://facebook.com/chungtranhy">C&T</a>.
-		</strong>
-	</footer>
+    </div>
+</div>
+<footer
+        style="border-top: 1px solid #d2d6de; text-align: center; background: #fff; color: #444; height: 60px; line-height: 60px;">
+    <strong>Copyright &copy; 2020 |
+    </strong>
+</footer>
 </body>
 </html>

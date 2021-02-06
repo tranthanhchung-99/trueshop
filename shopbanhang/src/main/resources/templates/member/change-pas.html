@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html layout:decorator="client/template">
+<html layout:decorator="client/template" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="UTF-8">
 <title>Thay đổi mật khẩu</title>
@@ -35,7 +35,7 @@
 	<div></div>
 
 	<br>
-	<form th:action="@{/resetpassword}" class="form-signin" method="POST">
+	<form th:action="@{/member/change-password}" class="form-signin" method="POST" th:modelAttribute="${user}">
 		<div class="container">
 			<!--  <h2 class="account-in text-center">
                        Đăng nhập
@@ -58,7 +58,7 @@
 												</div>
 												<div>
 													<span>Mật khẩu mới *</span><input type="password"
-														class="form-control" name="newPassword" id="password"
+														class="form-control" name="password" id="password"
 														onkeyup="checkPass(); return false" required=""
 														oninvalid="this.setCustomValidity('Hãy mật khẩu')"
 														oninput="setCustomValidity('')">

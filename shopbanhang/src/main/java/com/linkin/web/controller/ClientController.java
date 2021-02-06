@@ -194,20 +194,7 @@ public class ClientController {
 				listPro.remove(listPro.get(i));
 			}
 		}
-		List<CommentDTO> commentDTOs = commentService.searchByProduct(id);// lay tat ca comment cua 1 sp
-		List<ReviewDTO> reviews = reviewService.find(id);// tuong tu comment
-		float sum = 0;
-		for (ReviewDTO reviewDTO : reviews) {
-			int star = reviewDTO.getStarNumber();
-			sum = sum + star;
-		}
-		int dem = reviews.size();
-		float totalStar = sum / dem;// sao trung binh
-		request.setAttribute("dem", dem);
-		request.setAttribute("totalStar", totalStar);
 		request.setAttribute("product", product);
-		request.setAttribute("commentProduct", commentDTOs);
-		request.setAttribute("reviews", reviews);
 		request.setAttribute("productList", listPro);
 		return "client/product";
 	}

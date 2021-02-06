@@ -1,32 +1,21 @@
 package com.linkin.web.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.linkin.entity.InforBill;
 import com.linkin.model.BillDTO;
 import com.linkin.model.BillProductDTO;
-import com.linkin.model.GiaoHang;
 import com.linkin.model.ProductDTO;
-import com.linkin.model.UserDTO;
-import com.linkin.model.UserPrincipal;
 import com.linkin.service.BillProductService;
 import com.linkin.service.BillService;
 import com.linkin.service.InforBillService;
 import com.linkin.service.ProductService;
-import com.linkin.utils.DateTimeUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class AdminBillController {
@@ -71,30 +60,7 @@ public class AdminBillController {
 				billDTOs4.add(dto);
 			}
 		}
-//		if (keyword.equals("DA XAC NHAN")) {
-//			request.setAttribute("bills", billDTOs1);
-//			
-//		}
-//
-//		if (keyword.equals("DANG VAN CHUYEN")) {
-//			request.setAttribute("bills", billDTOs3);
-//
-//		}
-//
-//		if (keyword.equals("DA NHAN HANG")) {
-//			request.setAttribute("bills", billDTOs4);
-//
-//		}
-//
-//		if (keyword.equals("HUY")) {
-//			request.setAttribute("bills", billDTOs2);
-//
-//		}
-//		if (keyword.equals("NEW")) {
-//			request.setAttribute("bills", billDTOs);
-//
-//		}
-//		request.setAttribute("bills", listBill);// đay danh sach bill sang giao dien
+
 		request.setAttribute("bills1", billDTOs1);//da xac nhan
 		request.setAttribute("bills3", billDTOs3);//dang van chuyen
 		request.setAttribute("bills4", billDTOs4);//da nhan hang
@@ -163,6 +129,16 @@ public class AdminBillController {
 	@GetMapping(value = "/admin/updateGiao/bill")
 	public String updateGiaoHangBill(@RequestParam(name = "billId") Long billId, HttpSession session,
 			HttpServletRequest req) {
+		session = req.getSession();
+		BillDTO billDTO = billService.get(billId);
+		billDTO.setTrangThai("DA CHUYEN HANG");
+		billDTO.setGiaoHang("DANG VAN CHUYEN");
+		billService.update(billDTO);
+		return "redirect:/admin/bill/search?keyword=DA+XAC+NHAN";
+	}
+	@GetMapping(value = "/admin/updateSuccess/bill")
+	public String updateGiaoHangSuccess(@RequestParam(name = "billId") Long billId, HttpSession session,
+									 HttpServletRequest req) {
 		session = req.getSession();
 		BillDTO billDTO = billService.get(billId);
 		billDTO.setTrangThai("DA CHUYEN HANG");

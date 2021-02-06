@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html layout:decorator="client/template">
+<html layout:decorator="client/template" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="UTF-8">
 <title>Chi tiết sản phẩm</title>
@@ -158,7 +158,6 @@
 												src="https://shopgiayreplica.com/wp-content/uploads/2018/07/cach-chon-size-giay-nike-adidas-3.jpg"
 												alt="" width="720" height="384">
 										</div>
-										<p>Chúc các bạn lựa chọn được đôi giày ưng ý :)</p>
 									</div>
 								</div>
 							</div>
@@ -167,68 +166,9 @@
 					</div>
 				</div>
 			</div>
-			<div class="formcomment">
-				<form th:action="@{/member/comment}" method="post">
-					<input type="hidden" name="productId" th:value="${product.id}" />
-					<textarea class="binhluan" type="text" name="comment"
-						placeholder="Bình luận của bạn..."></textarea>
 
-					<input class="comment" type="submit" value="Gửi nội dung" />
-				</form>
-			</div>
 
-			<div class="noidungcooment" th:each="c:${commentProduct}">
-				<div class="commentform">
-					<div class="commentname" th:text="${c.userDTO.name}"></div>
-					<div class="commentdate" th:text="${c.commentDate}"></div>
-				</div>
-				<div class="commentn" th:text="${c.comment}"></div>
-				<hr>
-			</div>
-			<!-- 	<div>
-				<p>
-					danh gia (<label th:text="${dem}"> </label>)
-				</p>
-				<label th:text="${totalStar}"> </label>
 
-			</div> -->
-			<div class="row">
-				<div class="col-sm-8">
-
-					<div class="startcooment" th:each="r:${reviews}">
-						<div class="starform ">
-							<div class="starname" th:text="${r.userDTO.name}"></div>
-							<div class="startdate" th:text="${r.starNumber}"></div>
-							<img class="sao" th:src="@{'/image/icons/star.png'}">
-
-						</div>
-
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="stars">
-						<form th:action="@{/member/review}" method="post">
-							<input type="hidden" name="productId" th:value="${product.id}" />
-							<input class="star star-5" type="radio" id="star5"
-								name="starNumber" value="5" /> <label class=" star star-5 full"
-								for="star5" title="Awesome - 5 stars"></label> <input
-								class="star star-4" type="radio" id="star4" name="starNumber"
-								value="4" /> <label class="star star-4 full" for="star4"
-								title="Pretty good - 4 stars"></label> <input
-								class="star star-3" type="radio" id="star3" name="starNumber"
-								value="3" /> <label class=" star star-3 full" for="star3"
-								title="Meh - 3 stars"></label> <input class="star star-2"
-								type="radio" id="star2" name="starNumber" value="2" /> <label
-								class=" star star-2 full" for="star2"
-								title="Kinda bad - 2 stars"></label> <input class="star star-1"
-								type="radio" id="star1" name="starNumber" value="1" /> <label
-								class="star star-1 full" for="star1"
-								title="Sucks big time - 1 star"></label> <input type="submit"
-								class="butonstar" value="Gửi" />
-						</form>
-					</div>
-				</div>
-			</div>
 		</div>
 
 		<section class="sec-relate-product bg0 p-t-45 p-b-105">

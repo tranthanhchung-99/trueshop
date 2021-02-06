@@ -1,61 +1,51 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<link rel="stylesheet" th:href="@{/css/menu.css}">
+	<meta charset="utf-8">
+	<link rel="stylesheet" th:href="@{/css/menu.css}">
 </head>
 <body>
-	<div th:fragment="footer" th:remove="tag">
-	
-				<!-- Load more -->
-			
+<div th:fragment="footer" th:remove="tag">
+
+	<!-- Load more -->
+
 
 
 	<!-- Footer -->
 	<footer class="bg3 p-t-75 p-b-32">
 		<div class="container">
-		<p style="text-align:center;">
-		<img class="lazy lazy-loaded" th:src="@{'/image/logoshop2.png'}"  title="Shop giày CT tại Hà Nội" style="max-width:200px;">
-		</p>
-		<div class="p-t-27" style="text-align:center;">
-						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-							<i class="fa fa-facebook"></i>
-						</a>
-
-						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-							<i class="fa fa-instagram"></i>
-						</a>
-						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-							<i class="fa fa-twitter"></i>
-						</a>
-						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-							<i class="fa fa-google-plus"></i>
-						</a>
-						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-							<i class="fa fa-youtube"></i>
-						</a>
-						
-
-						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-							<i class="fa fa-pinterest-p"></i>
-						</a>
-					</div>
+			<div class="p-t-27" style="text-align: center;">
+				<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16"> <i
+						class="fa fa-facebook"></i>
+				</a> <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16"> <i
+					class="fa fa-instagram"></i>
+			</a> <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16"> <i
+					class="fa fa-twitter"></i>
+			</a> <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16"> <i
+					class="fa fa-google-plus"></i>
+			</a> <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16"> <i
+					class="fa fa-youtube"></i>
+			</a> <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16"> <i
+					class="fa fa-pinterest-p"></i>
+			</a>
+			</div>
 			<div class="row">
-			
-			
-			
+
+
+
 				<div class="col-sm-6 col-lg-3 p-b-50">
 					<h4 class="stext-301 cl0 p-b-30">
 						<p th:text="#{menu.category}"></p>
 					</h4>
 
 					<ul>
-<c:forEach th:each="category : ${categoryList}">
-											<li class="p-b-10 as" >
-												<a class="textb" th:href="@{'/productsByCategory?id='+${category.id}}"> <span
-													th:text="${category.name}"></span></a></li>
-										</c:forEach>
-						
+						<c:forEach th:each="category : ${categoryList}">
+							<li class="p-b-10 as"><a class="textb"
+													 th:href="@{'/productsByCategory?id='+${category.id}}"> <span
+									th:text="${category.name}"></span></a></li>
+						</c:forEach>
+
 					</ul>
 				</div>
 
@@ -65,14 +55,17 @@
 					</h4>
 
 					<ul>
-						<p th:text="#{footer.2}"></p>
-						<p th:text="#{footer.3}"></p>
-						<p><i class="fa fa-location-arrow"></i> <p th:text="#{footer.4}"></p></p>
-						<p><i class="fa fa-rocket"></i> <p th:text="#{footer.5}"></p></p>
-				
-						
+						<p>TrueShop chuyên giày Replica 1:1</p>
+						<p>Cam kết chất lượng số 1 thị trường</p>
+						<p>
+							<i class="fa fa-location-arrow"></i>
+						<p th:text="#{footer.4}"></p>
+						</p>
+						<p>
+							<i class="fa fa-rocket"></i>
+						<p th:text="#{footer.5}"></p>
+						</p>
 
-						
 					</ul>
 				</div>
 
@@ -82,25 +75,18 @@
 					</h4>
 
 					<ul>
-                        <li class="diachi">
-                            <i class="fa fa-location-arrow"></i>
-                            <i style="color: #525252">161 Chùa Láng, Đống Đa, Hà Nội</i>
-                        </li>
-                        <li class="diachi">
-                           <i class="fa fa-phone"></i>
-                            <i>
-                                <a href="#" style="color: #525252">0942.359.987</a>
-                                <a href="#" style="color: #525252">0988.888.888</a>
-                                <a href="#" style="color: #525252">0976.543.210</a>
-                            </i>
-                        </li>
-                        <li class="diachi">
-                            <i class="fa fa-envelope"></i>
-                            <i><a href="#" style="color: #525252">thanhchungt0@gmail.com</a> </i>
-                        </li>
-                    </ul>
+						<li class="diachi"><i class="fa fa-location-arrow"></i> <i
+								style="color: #525252">163 Phú Đô, Nam Từ Liêm, Hà Nội</i></li>
+						<li class="diachi"><i class="fa fa-phone"></i> <i> <a
+								href="#" style="color: #525252">0962.593.003</a> <a href="#"
+																					style="color: #525252">032.919.3410</a> <a href="#"
+																															   style="color: #525252">0976.356.789</a>
+						</i></li>
+						<li class="diachi"><i class="fa fa-envelope"></i> <i><a
+								href="#" style="color: #525252">anhldph07813@gmail.com</a> </i></li>
+					</ul>
 
-					
+
 				</div>
 
 				<div class="col-sm-6 col-lg-3 p-b-50">
@@ -109,42 +95,12 @@
 					</h4>
 
 					<form>
-						
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.240040647417!2d105.79961401476316!3d21.023079286001444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab5ccfcfd8d7%3A0x7c1d9c3bc5fc1e8!2zMTYxIENow7lhIEzDoW5nLCBMw6FuZyBUaMaw4bujbmcsIMSQ4buRbmcgxJBhLCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1589197381267!5m2!1svi!2s" 
-                    width="350" height="250" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-                            </iframe>
-				
+
+						</iframe>
+						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.5484257971475!2d105.76294735071777!3d21.01073118593957!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313453594582c63f%3A0xf639d1c0929260b8!2zMTYzIFBow7ogxJDDtCwgTeG7hSBUcsOsLCBU4burIExpw6ptLCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1612366722636!5m2!1svi!2s" width="350" height="250" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+
 					</form>
 				</div>
-			</div>
-
-			<div class="p-t-40">
-				<div class="flex-c-m flex-w p-b-18">
-					<a href="#" class="m-all-1">
-						<img th:src="@{'/image/icons/icon-pay-01.png'}" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img th:src="@{'/image/icons/icon-pay-02.png'}" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img th:src="@{'/image/icons/icon-pay-03.png'}" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img th:src="@{'/image/icons/icon-pay-04.png'}" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img th:src="@{'/image/icons/icon-pay-05.png'}" alt="ICON-PAY">
-					</a>
-				</div>
-
-				<p class="stext-107 cl6 txt-center">
-					© 2020 <a th:text="#{footer.7}" href="https://shopgiayreplica.com/"></a>. All rights reserved
-
-				</p>
 			</div>
 		</div>
 	</footer>
