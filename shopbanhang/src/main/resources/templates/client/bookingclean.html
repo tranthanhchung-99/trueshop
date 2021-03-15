@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html layout:decorator="client/template"
+	xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+<title>Đặt lịch vệ sinh giày</title>
+</head>
+<body layout:fragment="content" th:remove="tag">
+
+	<form class="form-horizontal" th:action="@{/booking-clean}"
+						method="post">
+		<div class="modal-content box_about_home col-sm-12">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+				<h3 class="modal-title mb0" id="myLargeModalLabel">Liên hệ đặt
+					lịch vệ sinh giày.</h3>
+			</div>
+			<div dir="auto">
+				TẶNG VOUCHER GIẢM GIÁ 20% DỊCH VỤ CHO KHÁCH HÀNG FEEDBACK GIÚP NHÀ
+				MÔ<span class="text_exposed_show"><br></span><br>FREE SHIP
+				2 CHIỀU KHI GỬI TỪ 5 ĐÔI GIÀY.<br>FREE SHIP 1 CHIỀU KHI GỬI TỪ
+				3 ĐÔI GIÀY.
+			</div>
+			<div dir="auto">(Hỗ trợ phí ship 1 chiều không quá 40k, trên
+				40k quý khách vui lòng thanh toán cho nv vận chuyển phần phụ trội)</div>
+			<div dir="auto">&nbsp;</div>
+			<div dir="auto">Áp dụng từ:&nbsp;1/3/2021 – 31/3/2021</div>
+			<div dir="auto">&nbsp;</div>
+			<div dir="auto">!Lưu ý: Vì đội ship của Morino sẽ gom đơn và đi
+				lấy theo khung giờ đã định nên trước khi qua shipper của Morino sẽ
+				alo cho khách hàng trước 30 phút để hẹn qua lấy giày, do đó sau khi
+				đặt lịch ship giày bạn không cần phải đợi đâu ạ.</div>
+			<div class="modal-body">
+				<input type="hidden" name="url_rd"
+					value="https://morino.vn/dat-lich">
+				<div class="form-group">
+					<label for="inputEmail3" class="col-sm-2 control-label">Họ
+						và tên</label>
+					<div class="col-sm-10">
+						<input required="" type="text" name="fullname" value=""
+							class="form-control" id="inputEmail3" placeholder="Họ và tên">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputEmail3" class="col-sm-2 control-label">Điện
+						thoại</label>
+					<div class="col-sm-10">
+						<input required="" type="text" name="tel" value=""
+							class="form-control" id="inputEmail3" placeholder="Điện thoại">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+					<div class="col-sm-10">
+						<input required type="text" name="email" value=""
+							class="form-control" id="inputEmail3" placeholder="email">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputEmail3" class="col-sm-2 control-label">Địa
+						chỉ</label>
+					<div class="col-sm-10">
+						<input type="text" name="address" value="" class="form-control"
+							id="inputEmail3" placeholder="Địa chỉ">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputEmail3" class="col-sm-2 control-label">Số
+						lượng giầy</label>
+					<div class="col-sm-10">
+						<input type="text" name="number_s" value="" class="form-control"
+							id="inputEmail3" placeholder="Số lượng giầy">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputEmail3" class="col-sm-12 control-label">Chọn
+						hình thức gửi giầy</label>
+					<div class="col-sm-10">
+						<label class="radio-inline"> <input type="radio"
+							name="type_get" class="den_ch" id="inlineRadio1"
+							value="Đến cửa hàng"> Đến cửa hàng
+						</label> <label class="radio-inline"> <input type="radio"
+							name="type_get" class="tai_nh" id="inlineRadio2"
+							value="Nhận trả giày 2 chiều"> Nhận trả giày 2 chiều
+						</label>
+						<!--<label class="radio-inline">
+							  <input type="radio" name="type_get"  class="ship_tg" id="inlineRadio3" value="Ship trả giày"> Ship trả giày
+							</label>-->
+						<div class="noi_d_ch"></div>
+						<div class="noi_d">
+							<label>Chọn quận</label> <select class="form-control"
+								name="city_s" style="margin-bottom: 9px;">
+								<option value="">Xin mời chọn</option>
+								<option
+									value="Cầu Giấy - phí ship 1 chiều: Từ 20.000đ đến 30.000đ">Cầu
+									Giấy - phí ship 1 chiều: Từ 20.000đ đến 30.000đ</option>
+								<option value="Đống Đa - phí ship 1 chiều: 30.000đ">Đống
+									Đa - phí ship 1 chiều: 30.000đ</option>
+								<option
+									value="Hai Bà Trưng - phí ship 1 chiều: Từ 30.000đ đến 40.000đ">Hai
+									Bà Trưng - phí ship 1 chiều: Từ 30.000đ đến 40.000đ</option>
+								<option value="Thanh Xuân - phí ship 1 chiều: 30.000đ">Thanh
+									Xuân - phí ship 1 chiều: 30.000đ</option>
+								<option value="Hoàn Kiếm - phí ship 1 chiều: 30.000đ">Hoàn
+									Kiếm - phí ship 1 chiều: 30.000đ</option>
+								<option
+									value="Hoàng Mai - phí ship 1 chiều: Từ 40.000đ đến 50.000đ">Hoàng
+									Mai - phí ship 1 chiều: Từ 40.000đ đến 50.000đ</option>
+								<option value="Ba Đình - phí ship 1 chiều: 30.000đ">Ba
+									Đình - phí ship 1 chiều: 30.000đ</option>
+								<option
+									value="Tây Hồ - phí ship 1 chiều: Từ 30.000đ đến 40.000đ">Tây
+									Hồ - phí ship 1 chiều: Từ 30.000đ đến 40.000đ</option>
+								<option
+									value="Nam Từ Liêm - phí ship 1 chiều: Từ 40.000đ đến 50.000đ">Nam
+									Từ Liêm - phí ship 1 chiều: Từ 40.000đ đến 50.000đ</option>
+								<option
+									value="Bắc Từ Liêm - phí ship 1 chiều: Từ 40.000đ đến 50.000đ">Bắc
+									Từ Liêm - phí ship 1 chiều: Từ 40.000đ đến 50.000đ</option>
+								<option
+									value="Long Biên - phí ship 1 chiều: Từ 40.000đ đến 50.000đ">Long
+									Biên - phí ship 1 chiều: Từ 40.000đ đến 50.000đ</option>
+								<option
+									value="Hà Đông - phí ship 1 chiều: Từ 40.000đ đến 60.000đ">Hà
+									Đông - phí ship 1 chiều: Từ 40.000đ đến 60.000đ</option>
+								<option
+									value="Thanh Trì - phí ship 1 chiều: Từ 50.000đ đến 60.000đ">Thanh
+									Trì - phí ship 1 chiều: Từ 50.000đ đến 60.000đ</option>
+								<option
+									value="Gia Lâm - phí ship 1 chiều: Từ 60.000đ đến 80.000đ">Gia
+									Lâm - phí ship 1 chiều: Từ 60.000đ đến 80.000đ</option>
+							</select> <label>Chúng tôi có thể đến lấy giầy của bạn vào khung
+								giờ nào</label> <select class="form-control" name="time_s">
+								<option value="">Xin mời chọn</option>
+								<option value="7h - 10h">7h - 10h</option>
+								<option value="14h - 17h">14h - 17h</option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="inputEmail3" class="col-sm-2 control-label">Tin
+						nhắn</label>
+					<div class="col-sm-10">
+						<textarea name="message" class="form-control" rows="4"></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary">Gửi liên hệ</button>
+			</div>
+		</div>
+	</form>
+</body>
+</html>

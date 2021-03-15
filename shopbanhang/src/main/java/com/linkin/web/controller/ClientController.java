@@ -31,6 +31,7 @@ import com.linkin.model.UserDTO;
 import com.linkin.model.UserPrincipal;
 import com.linkin.service.CategoryService;
 import com.linkin.service.CommentService;
+import com.linkin.service.EmailService;
 import com.linkin.service.KichThuocService;
 import com.linkin.service.ProductService;
 import com.linkin.service.ReviewService;
@@ -60,6 +61,9 @@ public class ClientController {
 
 	@Autowired
 	private KichThuocService kichThuocService;
+
+	@Autowired
+	EmailService emailService;
 
 	@GetMapping(value = "/login")
 	public String login(HttpServletRequest request, @RequestParam(name = "err", required = false) String error) {
@@ -350,8 +354,10 @@ public class ClientController {
 				priceEnd, categoryId, 0, 10 * 100);
 		for (int i = 0; i < listPros.size() - 1; i++) {// tao vong lap theo bien i bat dau tu 0 dau cua listPro
 			for (int j = listPros.size() - 1; j > i; j--) {// tao vong lap theo bien j bat dau tu phan tu cuoi listPro
-				if (listPros.get(i).getName().equals(listPros.get(j).getName())) {// neu ten cua 2 sp thu i va thu j giong
-																				// nhau thi xoa ptu thu j trong listPro
+				if (listPros.get(i).getName().equals(listPros.get(j).getName())) {// neu ten cua 2 sp thu i va thu j
+																					// giong
+																					// nhau thi xoa ptu thu j trong
+																					// listPro
 					listPros.remove(listPros.get(j));
 				}
 			}
@@ -396,5 +402,33 @@ public class ClientController {
 		List<CategoryDTO> list = categoryService.searchAll("");
 		request.setAttribute("categoryList", list);
 		return "client/about";
+	}
+
+	@GetMapping(value = "/booking-clean")
+	public String bookingClean(HttpServletRequest request) {
+		return "client/bookingclean";
+	}
+
+	@GetMapping(value = "/booking-clean-suc")
+	public String bookingCleansuc(HttpServletRequest request) {
+		return "client/bookingcleansuc";
+	}
+
+	@PostMapping(value = "/booking-clean")
+	public String bookingCleanPost(@RequestParam(name = "fullname") String fullname,
+			@RequestParam(name = "tel") String tel, @RequestParam(name = "address") String address,
+			@RequestParam(name = "number_s") String number_s, @RequestParam(name = "type_get") String type_get,
+			@RequestParam(name = "city_s") String city_s, @RequestParam(name = "time_s") String time_s,
+			@RequestParam(name = "message") String message, @RequestParam(name = "email") String email) {
+
+		emailService.sendSimpleMessage(email, "Chi tiết đặt lịch vệ sinh giày",
+				"<html>" + "<body>" + "<h3>Bạn vừa đặt lịch vệ sinh giày thành công trên shopC&T!!! \n</h3>"
+						+ "<p>\n Họ và tên: " + fullname + "</p>" + "<p>\n Địa chỉ: " + address + "</p>"
+						+ "<p>\n Số điện thoại: " + tel + "</p>" + "<p>\n Email: " + email + "</p>"
+						+ "<p>\n Số lượng giày: " + number_s + " đôi </p>" + "<p>\n Hình thức gửi giày: " + type_get + "</p>"
+						+"<p>\n Phí ship 1 chiều: " + city_s + "</p>"+"<p>\n Thời gian chúng tôi tới lấy giày: " + time_s + "</p>"
+						+"<p>\n Tin nhắn từ bạn: "+message +"</p>"
+						+ "</body>" + "</html>");
+		return "redirect:/booking-clean-suc";
 	}
 }
