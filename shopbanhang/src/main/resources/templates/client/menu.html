@@ -23,6 +23,9 @@
 							<li sec:authorize="isAuthenticated()"><a
 								class="flex-c-m trans-04 p-lr-25" th:href="@{/logout}"><p
 										th:text="#{menu.dx}"></p></a></li>
+							<li sec:authorize="isAuthenticated()"><a
+								class="flex-c-m trans-04 p-lr-25" th:href="@{/update-info}"><p
+										th:text="#{menu.changeInfo}"></p></a></li>
 							<li sec:authorize="!isAuthenticated()"><a
 								class="flex-c-m trans-04 p-lr-25" th:href="@{/login}"><p
 										th:text="#{menu.dk}"></p></a></li>

@@ -7,11 +7,13 @@ import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -193,7 +195,7 @@ public class MemberController {
 					finalTotalPrice = (totalPrice - ((totalPrice * 5) / 100));
 					bill.setPriceTotal(finalTotalPrice);
 					bill.setDiscountPercent(5);
-					
+
 				} else {
 
 					bill.setPriceTotal(totalPrice);
@@ -236,6 +238,7 @@ public class MemberController {
 		}
 		return "redirect:/products";
 	}
+
 	@GetMapping(value = "/bill/add")
 	public String addOrderNoAu(HttpSession session, @RequestParam(value = "page", required = false) Integer page,
 			Model model, HttpServletRequest request) throws IOException {
@@ -250,14 +253,14 @@ public class MemberController {
 			Map<String, BillProductDTO> map = (Map<String, BillProductDTO>) object;
 			// lay cac tt cua sp , user luu xuong db
 			BillDTO bill = new BillDTO();
-			UserDTO userDTO= new UserDTO();
+			UserDTO userDTO = new UserDTO();
 			userDTO.setId(6L);
 			bill.setUser(userDTO);
 			bill.setStatus("NEW");
 			bill.setTrangThai("NEW");
 			bill.setGiaoHang("NEW");
 			billService.insert(bill);
-			
+
 			InforBillDTO inforBillDTO = new InforBillDTO();
 			inforBillDTO.setBillDTO(bill);
 			inforBillDTO.setAddress(inforBillDTO1.getAddress());
@@ -279,13 +282,13 @@ public class MemberController {
 				finalTotalPrice = totalPrice;
 				bill.setTotal(totalPrice);
 				/// discount
-			//	page = page == null ? 1 : page;
-				//List<BillDTO> list = billService.searchByBuyerId(principal.getId(), 0, 1000 * 10); // search trong bang
-																									// bill
+				// page = page == null ? 1 : page;
+				// List<BillDTO> list = billService.searchByBuyerId(principal.getId(), 0, 1000 *
+				// 10); // search trong bang
+				// bill
 				// update so luong sp sau khi mua hang thanh cong.
 				ProductDTO productDTO = productService.get(entry.getValue().getProduct().getId());
 				productDTO.setSoLuong(productDTO.getSoLuong() - billProduct.getQuantity());
-				
 
 				productService.update(productDTO);
 				bill.setPriceTotal(totalPrice);
@@ -309,7 +312,7 @@ public class MemberController {
 				content += "<p>Sản phẩm: " + i.getProduct().getName() + "<p>Số tiền: "
 						+ i.getUnitPrice() * i.getQuantity() + " (đ); \n";
 			}
-			
+
 			// gửi email sau khi thanh toán
 			emailService.sendSimpleMessage(inforBillDTO1.getEmail(), "Chi tiết đơn hàng",
 
@@ -326,12 +329,12 @@ public class MemberController {
 		}
 		return "redirect:/products";
 	}
-	
+
 	@GetMapping(value = "/noau/bills")
 	public String billdGetNoAu(HttpServletRequest request, HttpSession session) {
 		return "member/noaubill";
 	}
-	
+
 	// danh sach tat ca hoa don cua 1 khach hang
 	@GetMapping(value = "/member/bills")
 	public String bills(HttpServletRequest request, @RequestParam(value = "keyword", required = false) Long keyword,
@@ -459,7 +462,7 @@ public class MemberController {
 		request.setAttribute("tongtien", tongtien);
 		return "member/xacnhan";
 	}
-	
+
 	@GetMapping(value = "/thanhtoan")
 	public String thanhToanGetNoAu(HttpServletRequest request, HttpSession session) {
 		List<CategoryDTO> categoryList = (List<CategoryDTO>) session.getAttribute("cate");
@@ -486,6 +489,7 @@ public class MemberController {
 		request.setAttribute("tongtien", tongtien);
 		return "member/xacnhan";
 	}
+
 	// an da nhan hnag thi giao hang se tu DANG VAN CHUYEN doi sang DA NHAN HANG va
 	// luu xuong db
 	@GetMapping(value = "/member/updateGiao/bill")
@@ -516,8 +520,8 @@ public class MemberController {
 
 		UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserDTO userDTO = userService.get(principal.getId());
-		System.out.println("nnnnnnn"+principal.getId());
-		System.out.println("nnnnnnn"+user.getPassword());
+		System.out.println("nnnnnnn" + principal.getId());
+		System.out.println("nnnnnnn" + user.getPassword());
 
 		user.setId(principal.getId());
 		userService.setupUserPassword(user);
@@ -541,7 +545,7 @@ public class MemberController {
 	}
 
 	@PostMapping(value = "/resetpassword")
-	public String resetpassword(@RequestParam(name = "email") String email) {
+	public String resetPassword(@RequestParam(name = "email") String email) {
 		UserDTO user = userService.getByEmail(email);
 		String pass = PasswordGenerator.generateRandomPassword();
 		if (email.equals(user.getEmail())) {
@@ -559,6 +563,22 @@ public class MemberController {
 		}
 
 		return "redirect:/logout";
+	}
+
+	@GetMapping(value = "/update-info")
+	public String changeInfo(HttpServletRequest request, Model model) {
+		UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDTO user = userService.get(principal.getId());
+		model.addAttribute("user", user);
+		return "client/update-user";
+	}
+
+	@PostMapping(value = "/update-info")
+	public String changePassword(@ModelAttribute(name = "user") UserDTO user, HttpServletRequest request) {
+		user.setEnabled(true);
+		user.setRole("ROLE_MEMBER");
+		userService.update(user);
+		return "redirect:/products";
 	}
 
 }
