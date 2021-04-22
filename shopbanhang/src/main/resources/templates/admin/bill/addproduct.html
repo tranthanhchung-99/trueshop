@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="admin/template">
@@ -45,60 +46,44 @@
 </head>
 <body layout:fragment="content" th:remove="tag"
 	class="hold-transition skin-blue sidebar-mini">
-	<div class="wrapper">
-		<div class="content-wrapper">
-			<section class="content-header">
-				<h1>Chi Tiết Hóa Đơn</h1>
-				<br>
-				<ol class="breadcrumb">
-					<li><a href="#"><i class="fa fa-dashboard"></i> Quản trị</a></li> >
-					<li><a href="#">Chi Tiết Hóa Đơn</a></li>
-				</ol>
-			</section>
-			<section class="content">
-				<div class="row">
-					<div class="col-xs-12">
-						<!-- Start Table -->
-						<div class="box">
-							<!-- /.box-header -->
-							<div class="box-body">
-								<table id="example1" class="table table-bordered table-striped">
-									<thead>
-										<tr>
-											<th>ID</th>
-											<th>Tên Sản Phẩm</th>
-											<th>Giá Sản Phẩm</th>
-											<th>Số Lượng</th>
-											<th>Thành Tiền</th>
+	<div class="row isotope-grid">
 
-										</tr>
-									</thead>
-									<tbody>
-										<tr th:each="bp:${billProducts}">
-											<td th:text="${bp.id }"></td>
-											<td th:text="${bp.product.name }"></td>
-											<td><span
-												th:text="${#numbers.formatDecimal(bp.product.priceOut, 0, 'COMMA', 0, 'POINT')}"></span>đ</td>
-											<td th:text="${bp.quantity }"></td>
-											<td><span
-												th:text="${#numbers.formatDecimal(bp.product.priceOut*bp.quantity, 0, 'COMMA', 0, 'POINT')}"></span>đ</td>
-											<!-- <td><a
-											th:href="@{'/admin/delete/bill?idBill='+${bp.id }}"><i
-													class="fa fa-times" style="font-size: 22px"></i></a></td> -->
-										</tr>
-									</tbody>
-
-
-								</table>
+				<div th:each="pro :${productList}">
+					<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+						<!-- Block2 -->
+						<div class="block2">
+							<div class="block2-pic hov-img0">
+								<img th:src="@{'/download?image='+${pro.image}}"
+									alt="IMG-PRODUCT"> <a
+									th:href="@{'/admin/product?id='+${pro.id}+'&billId='+${billId}}"
+									class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+									<p th:text="#{menu.de}">
+								</a>
 							</div>
+
+							<div class="tongnamegia">
+								<div class="divname">
+									<a th:href="@{ '/admin/product?id='+${pro.id}+'&billId='+${billId}}" class="tensp">
+										<p th:text="${pro.name }"></p>
+									</a>
+								</div>
+
+
+								<div class="divgia">
+									<span class="giasp1"
+										th:text="${#numbers.formatDecimal(pro.priceOut, 0, 'COMMA', 0, 'POINT')}"></span>
+									đ
+								</div>
+							</div>
+
+
 						</div>
 					</div>
 				</div>
-			</section>
-			<a th:href="@{'/admin/add/bill-product?billId='+${billId}}"><i
-				class="fa fa-times" style="font-size: 22px"></i></a>
-		</div>
-	</div>
+
+
+
+			</div>
 	<footer
 		style="border-top: 1px solid #d2d6de; text-align: center; background: #fff; color: #444; height: 60px; line-height: 60px;">
 		<strong>Copyright &copy; 2020 | </strong>

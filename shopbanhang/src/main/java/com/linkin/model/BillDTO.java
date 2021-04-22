@@ -92,4 +92,13 @@ public class BillDTO {
 		this.inforBillDTO = inforBillDTO;
 	}
 
+	public BillDTO(Long id) {
+		super();
+		this.id = id;
+	}
+	public BillDTO() {
+		super();
+		
+	}
+
 }

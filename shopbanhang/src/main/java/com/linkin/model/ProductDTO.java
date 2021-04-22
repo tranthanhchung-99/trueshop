@@ -113,4 +113,12 @@ public class ProductDTO {
 		this.multipartFile = multipartFile;
 	}
 
+	public ProductDTO(Long id) {
+		super();
+		this.id = id;
+	}
+	public ProductDTO() {
+		super();
+	}
+
 }

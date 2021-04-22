@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="admin/template">
+<head>
+<meta charset="UTF-8" />
+<title>Hóa đơn</title>
+<!-- Bootstrap 3.3.6 -->
+<link rel="stylesheet" th:href="@{/admin/admin/css/bootstrap.min.css}">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+<!-- DataTables -->
+<link rel="stylesheet"
+	th:href="@{/admin/admin/datatables/dataTables.bootstrap.css}">
+<!-- Theme style -->
+<link rel="stylesheet" th:href="@{/admin/admin/css/AdminLTE.min.css}">
+<!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+<link rel="stylesheet"
+	th:href="@{/admin/admin/css/skins/_all-skins.min.css}">
+<!-- DataTables -->
+<link rel="stylesheet"
+	th:href="@{/admin/admin/datatables/dataTables.bootstrap.css}">
+
+<!-- jQuery 2.2.0 -->
+<script th:src="@{/admin/admin/jQuery/jQuery-2.2.0.min.js}"></script>
+<!-- Bootstrap 3.3.6 -->
+<script th:src="@{/admin/admin/js/bootstrap.min.js}"></script>
+<!-- DataTables -->
+<script th:src="@{/admin/admin/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/admin/admin/datatables/dataTables.bootstrap.min.js}"></script>
+<!-- SlimScroll -->
+<script th:src="@{/admin/admin/slimScroll/jquery.slimscroll.min.js}"></script>
+<!-- FastClick -->
+<script th:src="@{/admin/admin/fastclick/fastclick.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/admin/admin/js/app.min.js}"></script>
+<!-- AdminLTE for demo purposes -->
+<script th:src="@{/admin/admin/js/demo.js}"></script>
+<!-- page script -->
+
+</head>
+<body layout:fragment="content" th:remove="tag"
+	class="hold-transition skin-blue sidebar-mini">
+	<div class="container">
+		<div class="row sanpham">
+			<div class=" col-sm-6 ">
+				<img class=" anhproduct"
+					th:src="@{'/download?image='+${product.image }}" alt="#" />
+			</div>
+			<div class="col-sm-6">
+				<h1 class="tenp" th:text="${product.name }"></h1>
+				<div class="conten price">
+					<label class="categoryname">Giá: </label> <span
+						th:text="${#numbers.formatDecimal(product.priceOut, 0, 'COMMA', 0, 'POINT')}"></span>
+					đ
+				</div>
+				<div class="row kc">
+					<div class="col-sm-6">
+						<!-- <div class="conten">
+								<div class="row-title">
+									<label class="categoryname">Thể loại: </label> <span
+										th:text="${product.category.name }"></span>
+								</div>
+							</div> -->
+						<div class="conten">
+							<div class="row-title">
+								<label class="categoryname">Thương hiệu: </label> <span
+									th:text="${product.thuongHieuDTO.name }"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+
+						<div class="conten ne">
+							<div class="row-title">
+								<label class="categoryname">Kích thước: </label> <span
+									th:text="${product.kichThuocDTO.name }"></span>
+							</div>
+
+						</div>
+
+
+						<!-- <div class="conten ne">
+								<div class="row-title">
+									<label class="categoryname">CHON SIZE: </label>
+									<p th:each="size:${size}">
+										<a th:href="@{'/product?id='+${size.id}}"
+											th:text="${size.kichThuocDTO.name}"></a>
+									</p>
+								</div>
+							</div> -->
+					</div>
+
+					<div id="menu" class="price1" th:each="size:${size}">
+						<ul>
+							<li><a th:href="@{'/admin/product?id='+${size.id}+'&billId='+${billId}}"
+								th:text="${size.kichThuocDTO.name}"></a></li>
+
+						</ul>
+					</div>
+				</div>
+				<form th:action="@{'/admin/buy?productId='+${product.id}+'&billId='+${billId}}" th:object="${billproduct}" method="post">
+				
+				<input type="number" th:field="*{quantity}" />
+				<input type="submit" value="Mua" />
+				
+				</form>
+				<div class="buttoncart" th:switch="${product.soLuong }>0">
+					<a class="cartbuton" th:case="${true}"
+						th:href="@{'/add-to-cart?pid='+${product.id}}" role="button">
+						THÊM VÀO GIỎ HÀNG </a> <a class="cartbuton" role="button" th:case="*">HẾT
+						HÀNG</a> <a class="cartbuton" title="0965135408"
+						href="https://zalo.me/0942359987">Liên hệ qua zalo</a>
+				</div>
+
+				<br>
+				<div class="sale_shop">
+					<strong>KHUYẾN MÃI KHI MUA HÀNG</strong>
+					<ul>
+						<li>Miễn phí ship hàng toàn quốc</li>
+						<li>Với đơn hàng trên 1 triệu sẽ được tặng 1 đôi tất kèm
+							theo.</li>
+						<li>Nhận hàng và kiểm tra trước khi thanh toán.</li>
+						<li>Giao hàng nhanh 60 phút trong nội thành Hà Nội.</li>
+					</ul>
+				</div>
+
+				<div class="conten net">
+					<label class="categoryname">Mô tả :</label> <span
+						th:text="${product.description }"></span>
+
+				</div>
+			</div>
+		</div>
+		<div class="product-tabs-wrapper">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12">
+
+						<div class="woocommerce-tabs wc-tabs-wrapper tabs-layout-tabs">
+							<ul class="tabs wc-tabs">
+
+								<li class="basel_additional_tab_tab active"><a
+									href="#tab-basel_additional_tab">Cách chọn size giày</a></li>
+							</ul>
+
+							<div class="basel-tab-wrapper">
+
+								<div
+									class="woocommerce-Tabs-panel woocommerce-Tabs-panel--basel_additional_tab panel entry-content wc-tab"
+									id="tab-basel_additional_tab" style="display: block;">
+									<p>Để chọn size giày phù hợp với chân của mình, bạn có thể
+										làm theo cách sau:</p>
+									<strong>Bước 1:</strong> Đo chiều dài bàn chân theo huớng dẫn ở
+									hình dưới:
+									<div class="hinh">
+										<p>
+											<img class="size-large wp-image-2318 aligncenter"
+												src="https://shopgiayreplica.com/wp-content/uploads/2018/07/cach-chon-size-giay-nike-adidas-1.jpg"
+												alt="" width="720" height="308">
+										</p>
+									</div>
+									<p>
+										<strong>Bước 2:</strong> Sau khi đo được chiều dài bàn chân,
+										bạn có thể đối chiếu với bảng size giày dưới để chọn được size
+										giày phù hợp cho mình. Ví dụ chiều dài bàn chân là 26.5cm thì
+										size giày nam Adidas phù hợp là 42.
+									</p>
+									<div class="hinh">
+										<img class="size-full wp-image-2316 aligncenter"
+											src="https://shopgiayreplica.com/wp-content/uploads/2018/07/cach-chon-size-giay-nike-adidas-2.jpg"
+											alt="" width="720" height="491"> <img
+											class="size-large wp-image-2317 aligncenter"
+											src="https://shopgiayreplica.com/wp-content/uploads/2018/07/cach-chon-size-giay-nike-adidas-3.jpg"
+											alt="" width="720" height="384">
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+	</div>
+
+
+	<footer
+		style="border-top: 1px solid #d2d6de; text-align: center; background: #fff; color: #444; height: 60px; line-height: 60px;">
+		<strong>Copyright &copy; 2020 | </strong>
+	</footer>
+</body>
+</html>
